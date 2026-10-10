@@ -1,4 +1,5 @@
-#include <stdio.h>
+#include "header.h"
+
 #include <stdint.h>
 #include <stdlib.h>
 
@@ -28,13 +29,18 @@ int main(int argc, const char *argv[])
 	return 0;
 }
 
-void rotate(char *str, size_t len, char init_char, int8_t n)
+void rotate(char *str, size_t len, char init_char, int8_t cipher)
 {
-	char *temp = malloc(len);
-	if (temp == NULL)
+	char *temp = smalloc(len + 1);	/* +1 for NULL terminator */
+	size_t i = 0;
+
+	for (i = 0; i < len; i++)
 	{
-		fprintf(stderr, "kernel failed to allocate memory of size %zu\n", len);
-		exit(EXIT_FAILURE);
 	}
-	return;
+
+	/* copy over data to the str */
+	strncpy(str, temp, len);
+	str[len] = '\0';	/* NULL terminate the string */
+
+	free(temp);	/* temp isn't needed anymore */
 }
