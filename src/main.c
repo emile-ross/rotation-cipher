@@ -38,7 +38,9 @@ int main(int argc, const char *argv[])
 	strncpy(str, argv[1], str_size);
 	str[str_size] = '\0';
 
-	rotate(str, str_size, "Aa", 26, 13);
+	decipher(str, ROT_13);
+
+
 	printf("%s\n", str);
 	free(str);
 
