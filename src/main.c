@@ -7,6 +7,8 @@
 int main(int argc, const char *argv[])
 {
 	uint16_t i = 0;
+	char *str = NULL;
+	size_t str_size = 0;
 
 	if (argc <= 1)
 	{
@@ -26,6 +28,19 @@ int main(int argc, const char *argv[])
 
 		return 1;
 	}
+
+	/* Warning: hardcoded argv[1] index making this modular would 
+	 * help avoid future bugs & would also make this more scalable */
+	str_size = strlen(argv[1]);
+	str = smalloc(str_size + 1);
+
+	/* write to string */
+	strncpy(str, argv[1], str_size);
+	str[str_size] = '\0';
+
+	rotate(str, str_size, 'a', 26, 13);
+	printf("%s\n", str);
+	free(str);
 
 	return 0;
 }
