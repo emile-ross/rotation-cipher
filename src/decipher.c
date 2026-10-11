@@ -39,3 +39,21 @@ Bool bound(const char c, const int lb, const int charset)
 	}
 	return False;
 }
+
+void decipher(char *str, cipher_types cipher)
+{
+	switch(cipher)
+	{
+		case ROT_48:
+			rotate(str, strlen(str), "!", 48, -24);
+			break;
+		case ROT_13:
+			rotate(str, strlen(str), "aA", 26, 13);
+			break;
+		case RSA:
+			fprintf(stderr, "RSA is not supported. yet...\n");
+			break;
+		default:
+			break;
+	}
+}
