@@ -3,7 +3,7 @@
 
 
 void *smalloc(size_t size);
-void rotate(char *str, size_t len, char init_char, uint8_t charset, int8_t cipher);
+void rotate(char *str, size_t len, char *init_char, uint8_t charset, int8_t cipher);
 
 typedef enum
 {
