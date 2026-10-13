@@ -4,7 +4,7 @@ typedef enum
 	ROT_13,
 	ROT_48,
 	RSA
-} cipher_types;
+} cipher_type;
 
 typedef enum
 {
@@ -15,5 +15,6 @@ typedef enum
 typedef struct cipher_menu_item
 {
 	struct cipher_menu_item *next;
-	char *text;
+	cipher_type type;
+	char *plain_text;
 } cipher_menu_item;

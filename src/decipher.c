@@ -40,7 +40,7 @@ Bool bound(const char c, const int lb, const int charset)
 	return False;
 }
 
-void decipher(char *str, cipher_types cipher)
+void decipher(char *str, cipher_type cipher)
 {
 	switch(cipher)
 	{
