@@ -38,8 +38,7 @@ int main(int argc, const char *argv[])
 	strncpy(str, argv[1], str_size);
 	str[str_size] = '\0';
 
-	decipher(str, ROT_13);
-
+	menu(str);
 
 	printf("%s\n", str);
 	free(str);
