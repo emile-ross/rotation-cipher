@@ -1,11 +1,20 @@
 #include "header.h"
 
+#define INIT_MENU_ITEMS (4)
+
 void menu(char *str, size_t length)
 {
-	char *menu_items[] = NULL;
-	decipher(str, ROT_13);
+	struct cipher_menu_item *(menu_items[]) = smalloc(sizeof(cipher_menu_item) * INIT_MENU_ITEMS);
 
-	decipher(menu_items[1], ROT_13);
-	decipher(menu_items[2], ROT_48);
-	decipher(str, ROT_48);
+	cipher_type types[3] = 
+	{
+		ROT_13,
+		ROT_48,
+		undefined
+	};
+
+	for (i = 0; types[i] != undefined; i++)
+	{
+		decipher(menu_items[i]->plain_text, types[i]);
+	}
 }
