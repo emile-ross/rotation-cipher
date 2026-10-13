@@ -4,7 +4,7 @@
 
 void menu(char *str, size_t length)
 {
-	struct cipher_menu_item *(menu_items[]) = smalloc(sizeof(cipher_menu_item) * INIT_MENU_ITEMS);
+	struct cipher_menu_item *(menu_items[]) = (struct *cipher_menu_item)smalloc(sizeof(cipher_menu_item) * INIT_MENU_ITEMS);
 
 	cipher_type types[3] = 
 	{
@@ -15,6 +15,7 @@ void menu(char *str, size_t length)
 
 	for (i = 0; types[i] != undefined; i++)
 	{
-		decipher(menu_items[i]->plain_text, types[i]);
+
+		decipher(menu_items[i]->plain_text, str, types[i]);
 	}
 }

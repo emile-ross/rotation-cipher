@@ -8,7 +8,7 @@ Bool bound(const char c, const int lb, const int charset);
 
 /* init_char is the first char in the charset, charset is the number of characters
  * in the charset, cipher is the size of the shift */
-void rotate(char *dst, char *src, size_t len, char *init_char, uint8_t charset, int8_t cipher)
+void rotate(const char **dst, char *src, size_t len, char *init_char, uint8_t charset, int8_t cipher)
 {
 	size_t num_charsets = strlen(init_char);
 	int c = 0;
@@ -40,10 +40,10 @@ Bool bound(const char c, const int lb, const int charset)
 	return False;
 }
 
-void decipher(char *dst, char *src, cipher_type cipher)
+void decipher(const char **dst, char *src, cipher_type cipher)
 {
 	/* TODO: avoid recalculation of string length */
-	switch(cipher)
+	switch (cipher)
 	{
 		case ROT_48:
 			rotate(dst, src, strlen(str), "!", 48, -24);
