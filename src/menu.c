@@ -14,11 +14,31 @@ void menu(char *str, size_t length)
 		ROT_48,
 		undefined
 	};
-	decipher(&(menu_items[0].plain_text), str, ROT_13);
+
+
+	decipher(&(menu_items[0].plain_text), str, length, ROT_13);
 	printf("%s\n", menu_items[0].plain_text);
 
 	for (i = 0; types[i] != undefined; i++)
 	{
 		decipher(&(menu_items[i].plain_text), str, length, types[i]);
+	}
+	types[i] = undefined;
+
+
+	printf("converting %s\n", str);
+	display_menu(menu_items, types);
+	for (i = 0; types[i] != undefined; i++)
+	{
+		free(menu_items[i].plain_text);
+	}
+}
+
+void display_menu(struct cipher_menu_item *menu_items, cipher_type *types)
+{
+	uint32_t i = 0;
+	for (i = 0; types[i] != undefined; i++)
+	{
+		printf("Item #%u: \'%s\'\n", i + 1, menu_items[i].plain_text);
 	}
 }
