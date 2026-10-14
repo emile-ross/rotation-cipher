@@ -2,8 +2,8 @@ CC = cc
 
 BIN_NAME := rot-solver
 
+src_files = decipher main memory_safety menu compare file_reading arguments take_input base64
 CFLAGS := -O2 -Wpedantic -Wswitch-enum -Wall -Wextra -Wconversion -std=c89
-src_files = decipher main memory_safety menu compare file_reading arguments
 SRC_PATH := $(addprefix src/, $(src_files))
 SRCS := $(addsuffix .c, $(SRC_PATH))
 

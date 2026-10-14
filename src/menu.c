@@ -43,6 +43,11 @@ void display_menu(struct cipher_menu_item *menu_items, cipher_type *types)
 	uint32_t i = 0;
 	for (i = 0; types[i] != undefined; i++)
 	{
+		if (types[i] == BASE_64)
+		{
+			if (menu_items[i].plain_text == NULL)
+				continue;
+		}
 		printf("Item #%u: \'%s\'\n", i + 1, menu_items[i].plain_text);
 	}
 }
