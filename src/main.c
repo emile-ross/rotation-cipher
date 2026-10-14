@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MIN_ARS 3
+
 int main(int argc, const char *argv[])
 {
 	uint16_t i = 0;
@@ -16,18 +18,14 @@ int main(int argc, const char *argv[])
 		return 1;
 	}
 
-	/* TODO add file reading */
-	if (argc > 2)
+	for (i = 1; i < argc; i++)
 	{
-		fprintf(stderr, "Unused arguments | Arguments inutiles :\n");
-		/* args before index 2 are used 
-		 * 0 being cmd, 1 being content / file */
-
-		for (i = 2; i < argc; i++)
-			printf("arg %u: \'%s\' \n", i, argv[i]);
-
-		return 1;
+		if (scmp(argv[i], "-f"))
+		{
+		}
+			
 	}
+
 
 	/* Warning: hardcoded argv[1] index making this modular would 
 	 * help avoid future bugs & would also make this more scalable */
