@@ -1,7 +1,10 @@
 typedef enum
 {
 	undefined = 0,
+	ROT_1,
 	ROT_13,
+	ROT_24,
+	ROT_47,
 	ROT_48,
 	RSA
 } cipher_type;

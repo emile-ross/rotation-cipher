@@ -8,16 +8,13 @@ void menu(char *str, size_t length)
 	struct cipher_menu_item *menu_items = (struct cipher_menu_item*)calloc(INIT_MENU_ITEMS, sizeof(cipher_menu_item));
 	uint32_t i = 0;
 
-	cipher_type types[3] = 
+	cipher_type types[5] = 
 	{
+		ROT_1,
 		ROT_13,
 		ROT_48,
 		undefined
 	};
-
-
-	decipher(&(menu_items[0].plain_text), str, length, ROT_13);
-	printf("%s\n", menu_items[0].plain_text);
 
 	for (i = 0; types[i] != undefined; i++)
 	{
@@ -32,6 +29,7 @@ void menu(char *str, size_t length)
 	{
 		free(menu_items[i].plain_text);
 	}
+	free(menu_items);
 }
 
 void display_menu(struct cipher_menu_item *menu_items, cipher_type *types)

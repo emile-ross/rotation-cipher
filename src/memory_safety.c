@@ -25,6 +25,7 @@ void *srealloc(void *old_ptr, size_t size)
 	}
 	return ptr;
 }
+
 void *scalloc(size_t n, size_t size)
 {
 	void *ptr = NULL;
