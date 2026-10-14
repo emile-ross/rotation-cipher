@@ -7,6 +7,8 @@ void menu(char *str, size_t length)
 {
 	struct cipher_menu_item *menu_items = (struct cipher_menu_item*)scalloc(INIT_MENU_ITEMS, sizeof(cipher_menu_item));
 	uint32_t i = 0;
+	int32_t input = 0;
+	Bool success = False;
 
 	/* this is a default setting for the menu and it will never change */
 	cipher_type types[6] = 
@@ -18,7 +20,7 @@ void menu(char *str, size_t length)
 		undefined
 	};
 
-	while (input != 0)
+	do
 	{
 		for (i = 0; types[i] != undefined; i++)
 		{
@@ -27,9 +29,14 @@ void menu(char *str, size_t length)
 		}
 		types[i] = undefined;
 
-
 		printf("Converting %s\n", str);
+
 		display_menu(menu_items, types);
+		/* has blocking behaviour */
+		input = getint(&success);
+		if (success)
+		{
+		}
 
 		/* free all menu items & menu_items */
 		for (i = 0; types[i] != undefined; i++)
@@ -37,6 +44,8 @@ void menu(char *str, size_t length)
 			free(menu_items[i].plain_text);
 		}
 	}
+	while (input != 0);
+	printf("Exiting...\n");
 	free(menu_items);
 }
 
