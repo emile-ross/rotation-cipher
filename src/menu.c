@@ -14,10 +14,11 @@ void menu(char *str, size_t length)
 		ROT_48,
 		undefined
 	};
+	decipher(&(menu_items[0].plain_text), str, ROT_13);
+	printf("%s\n", menu_items[0].plain_text);
 
 	for (i = 0; types[i] != undefined; i++)
 	{
-
-		decipher(menu_items[i]->plain_text, str, types[i]);
+		decipher(&(menu_items[i].plain_text), str, types[i]);
 	}
 }

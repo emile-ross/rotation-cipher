@@ -25,3 +25,14 @@ void *srealloc(void *old_ptr, size_t size)
 	}
 	return ptr;
 }
+void *scalloc(size_t n, size_t size)
+{
+	void *ptr = NULL;
+	ptr = calloc(n, size);
+	if (ptr == NULL)
+	{
+		fprintf(stderr, "smalloc(): The kernel failed to allocate memory of size %lu\n", size);
+		exit(EXIT_FAILURE);
+	}
+	return ptr;
+}
