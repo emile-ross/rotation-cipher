@@ -21,3 +21,12 @@ typedef struct cipher_menu_item
 	cipher_type type;
 	char *plain_text;
 } cipher_menu_item;
+
+typedef enum
+{
+	unknown_type = 0,
+	file_executed,
+	used_flag,
+	used_argument,
+	unused_argument
+} argument_type;
