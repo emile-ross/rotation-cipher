@@ -63,6 +63,7 @@ int main(int argc, const char *argv[])
 
 	menu(str, strlen(str));
 
+	free(args);
 	free(str);
 
 	return 0;
