@@ -40,7 +40,6 @@ int main(int argc, const char *argv[])
 
 	menu(str, str_size);
 
-	printf("%s\n", str);
 	free(str);
 
 	return 0;

@@ -22,6 +22,7 @@ void rotate(char **dst, char *src, size_t len, char *init_char, uint8_t charset,
 
 	for (i = 0; i < len; i++)
 	{
+		(*dst)[i] = src[i];
 		for (j = 0; j < num_charsets; j++)
 		{
 			c = '\0';
@@ -29,13 +30,12 @@ void rotate(char **dst, char *src, size_t len, char *init_char, uint8_t charset,
 			{
 				c = src[i] - init_char[j];
 				c = ((c + cipher) % charset + charset) % charset;
-				(*dst)[i] = (char)c + init_char[j];
+				(*dst)[i] = (char)(c + init_char[j]);
 				break;
-			} else {
-				(*dst)[i] = src[j];
 			}
 		}
 	}
+
 }
 
 Bool bound(const char c, const int lb, const int charset)
@@ -48,17 +48,17 @@ Bool bound(const char c, const int lb, const int charset)
 	return False;
 }
 
-void decipher(char **dst, char *src, cipher_type cipher)
+void decipher(char **dst, char *src, size_t length, cipher_type cipher)
 {
 	/* TODO: avoid recalculation of string length */
 	switch (cipher)
 	{
 		case ROT_48:
-			rotate(dst, src, strlen(src), "!", 48, -24);
+			rotate(dst, src, length, "!", 48, -24);
 			break;
 
 		case ROT_13:
-			rotate(dst, src, strlen(src), "aA", 26, 13);
+			rotate(dst, src, length, "aA", 26, 13);
 			break;
 
 		case RSA:

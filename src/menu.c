@@ -19,6 +19,6 @@ void menu(char *str, size_t length)
 
 	for (i = 0; types[i] != undefined; i++)
 	{
-		decipher(&(menu_items[i].plain_text), str, types[i]);
+		decipher(&(menu_items[i].plain_text), str, length, types[i]);
 	}
 }
