@@ -13,3 +13,7 @@ void decipher(char **dst, char *src, size_t length, cipher_type cipher);
 
 void menu(char *str, size_t length);
 void display_menu(struct cipher_menu_item *menu_items, cipher_type *types);
+
+/* compare.c */
+	Bool scmp(const char *s1, const char *s2);
+	Bool cmp(const char *arg, const char *s1, const char *s2);

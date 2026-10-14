@@ -20,10 +20,17 @@ int main(int argc, const char *argv[])
 
 	for (i = 1; i < argc; i++)
 	{
-		if (scmp(argv[i], "-f"))
+		if (cmp(argv[i], "-f", "--file"))
 		{
+			if (i + 1 > argc)
+			{
+				get_file_content(argv);
+			}
+			else
+			{
+				fprintf(stderr, "missing arguments for file reading\n");
+			}
 		}
-			
 	}
 
 

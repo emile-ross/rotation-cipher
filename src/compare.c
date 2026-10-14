@@ -19,3 +19,20 @@ Bool scmp(const char *s1, const char *s2)
 		return False;
 	}
 }
+
+Bool cmp(const char *arg, const char *s1, const char *s2)
+{
+
+	if (scmp(arg, s1))
+	{
+		return True;
+	}
+	else if (scmp(arg, s2))
+	{
+		return True;
+	}
+	else
+	{
+		return False;
+	}
+}
