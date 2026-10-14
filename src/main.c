@@ -10,8 +10,10 @@ int main(int argc, const char *argv[])
 {
 	uint16_t i = 0;
 	char *str = NULL;
-	size_t str_size = 0;
 	char *file_content = NULL;
+	uint16_t unused_arg_count = 0;
+	size_t temp_length = 0;
+	uint16_t temp_index = 0;
 
 	argument_type *args = smalloc(sizeof(argument_type) * (unsigned)argc);
 	args[0] = file_executed;
@@ -46,20 +48,20 @@ int main(int argc, const char *argv[])
 		else
 		{
 			args[i] = unused_argument;
+			unused_arg_count++;
 		}
 	}
 
+	if (unused_arg_count == 1)
+	{
+		temp_index = argtype_to_index(argc, args, unused_argument);
+		temp_length = strlen(argv[temp_index]) + 1;
+		str = smalloc(temp_length);
+		strncpy(str, argv[temp_index], temp_length);
+		str[temp_length -1] = '\0';
+	}
 
-	/* Warning: hardcoded argv[1] index making this modular would 
-	 * help avoid future bugs & would also make this more scalable */
-	str_size = strlen(argv[1]);
-	str = smalloc(str_size + 1);
-
-	/* write to string */
-	strncpy(str, argv[1], str_size);
-	str[str_size] = '\0';
-
-	menu(str, str_size);
+	menu(str, strlen(str));
 
 	free(str);
 
