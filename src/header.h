@@ -25,3 +25,6 @@ void display_menu(struct cipher_menu_item *menu_items, cipher_type *types);
 /* file_reading.c */
 	char *get_file_content(const char *filename);
 
+/* arguments.c */
+	uint16_t argtype_to_index(const int32_t num_args, const argument_type *args, const argument_type type);
+
