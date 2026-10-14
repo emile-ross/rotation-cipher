@@ -3,9 +3,12 @@
 
 #include "data_types.h"
 
+#define INT32MAX	(2147483647)
+#define INT32MIN	(-2147483648)
+
 void *smalloc(size_t size);
 void rotate(char **dst, char *src, size_t len, char *init_char, uint8_t charset, int8_t cipher);
-void decipher(char **dst, char *src, size_t length, cipher_type cipher);
+void decipher(char **dst, char *src, size_t *length, cipher_type cipher);
 
 /* base64.c */
 	unsigned char * base64_encode(const unsigned char *src, size_t len, size_t *out_len);
@@ -28,3 +31,6 @@ void display_menu(struct cipher_menu_item *menu_items, cipher_type *types);
 /* arguments.c */
 	uint16_t argtype_to_index(const int32_t num_args, const argument_type *args, const argument_type type);
 
+
+/* take_input.c */
+	int32_t getint(Bool *success);

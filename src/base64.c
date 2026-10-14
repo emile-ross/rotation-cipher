@@ -34,10 +34,13 @@
  *
  */
 
-#include "includes.h"
+/* #include "includes.h"
 
-#include "os.h"
-#include "base64.h"
+#include "os.h" 
+#include "base64.h" */
+#include "header.h"
+#include <stdlib.h>
+#include <string.h>
 
 static const unsigned char base64_table[65] =
 	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
@@ -67,7 +70,7 @@ unsigned char * base64_encode(const unsigned char *src, size_t len,
 	olen++; /* nul termination */
 	if (olen < len)
 		return NULL; /* integer overflow */
-	out = os_malloc(olen);
+	out = malloc(olen);
 	if (out == NULL)
 		return NULL;
 
@@ -107,7 +110,7 @@ unsigned char * base64_encode(const unsigned char *src, size_t len,
 
 	*pos = '\0';
 	if (out_len)
-		*out_len = pos - out;
+		*out_len = (size_t)(pos - out);
 	return out;
 }
 
@@ -129,7 +132,7 @@ unsigned char * base64_decode(const unsigned char *src, size_t len,
 	size_t i, count, olen;
 	int pad = 0;
 
-	os_memset(dtable, 0x80, 256);
+	memset(dtable, 0x80, 256);
 	for (i = 0; i < sizeof(base64_table) - 1; i++)
 		dtable[base64_table[i]] = (unsigned char) i;
 	dtable['='] = 0;
@@ -144,7 +147,7 @@ unsigned char * base64_decode(const unsigned char *src, size_t len,
 		return NULL;
 
 	olen = count / 4 * 3;
-	pos = out = os_malloc(olen);
+	pos = out = malloc(olen);
 	if (out == NULL)
 		return NULL;
 
@@ -170,7 +173,7 @@ unsigned char * base64_decode(const unsigned char *src, size_t len,
 					pos -= 2;
 				else {
 					/* Invalid padding */
-					os_free(out);
+					free(out);
 					return NULL;
 				}
 				break;
@@ -178,6 +181,6 @@ unsigned char * base64_decode(const unsigned char *src, size_t len,
 		}
 	}
 
-	*out_len = pos - out;
+	*out_len = (size_t)(pos - out);
 	return out;
 }

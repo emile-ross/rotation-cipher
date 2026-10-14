@@ -5,26 +5,32 @@
 
 void menu(char *str, size_t length)
 {
-	struct cipher_menu_item *menu_items = (struct cipher_menu_item*)calloc(INIT_MENU_ITEMS, sizeof(cipher_menu_item));
+	struct cipher_menu_item *menu_items = (struct cipher_menu_item*)scalloc(INIT_MENU_ITEMS, sizeof(cipher_menu_item));
 	uint32_t i = 0;
 
-	cipher_type types[5] = 
+	/* this is a default setting for the menu and it will never change */
+	cipher_type types[6] = 
 	{
 		ROT_1,
 		ROT_13,
 		ROT_48,
+		BASE_64,
 		undefined
 	};
 
+
 	for (i = 0; types[i] != undefined; i++)
 	{
-		decipher(&(menu_items[i].plain_text), str, length, types[i]);
+		menu_items[i].string_length = length;
+		decipher(&(menu_items[i].plain_text), str, &(menu_items[i].string_length), types[i]);
 	}
 	types[i] = undefined;
 
 
-	printf("converting %s\n", str);
+	printf("Converting %s\n", str);
 	display_menu(menu_items, types);
+
+	/* free all menu items & menu_items */
 	for (i = 0; types[i] != undefined; i++)
 	{
 		free(menu_items[i].plain_text);
