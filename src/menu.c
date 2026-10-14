@@ -18,22 +18,24 @@ void menu(char *str, size_t length)
 		undefined
 	};
 
-
-	for (i = 0; types[i] != undefined; i++)
+	while (input != 0)
 	{
-		menu_items[i].string_length = length;
-		decipher(&(menu_items[i].plain_text), str, &(menu_items[i].string_length), types[i]);
-	}
-	types[i] = undefined;
+		for (i = 0; types[i] != undefined; i++)
+		{
+			menu_items[i].string_length = length;
+			decipher(&(menu_items[i].plain_text), str, &(menu_items[i].string_length), types[i]);
+		}
+		types[i] = undefined;
 
 
-	printf("Converting %s\n", str);
-	display_menu(menu_items, types);
+		printf("Converting %s\n", str);
+		display_menu(menu_items, types);
 
-	/* free all menu items & menu_items */
-	for (i = 0; types[i] != undefined; i++)
-	{
-		free(menu_items[i].plain_text);
+		/* free all menu items & menu_items */
+		for (i = 0; types[i] != undefined; i++)
+		{
+			free(menu_items[i].plain_text);
+		}
 	}
 	free(menu_items);
 }
