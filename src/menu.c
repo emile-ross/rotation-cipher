@@ -1,10 +1,12 @@
 #include "header.h"
 
+#include <stdlib.h>
 #define INIT_MENU_ITEMS (4)
 
 void menu(char *str, size_t length)
 {
-	struct cipher_menu_item *(menu_items[]) = (struct *cipher_menu_item)smalloc(sizeof(cipher_menu_item) * INIT_MENU_ITEMS);
+	struct cipher_menu_item *menu_items = (struct cipher_menu_item*)calloc(INIT_MENU_ITEMS, sizeof(cipher_menu_item));
+	uint32_t i = 0;
 
 	cipher_type types[3] = 
 	{

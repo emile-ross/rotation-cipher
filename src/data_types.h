@@ -16,5 +16,5 @@ typedef struct cipher_menu_item
 {
 	struct cipher_menu_item *next;
 	cipher_type type;
-	char **plain_text;
+	char *plain_text;
 } cipher_menu_item;
