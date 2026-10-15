@@ -14,6 +14,7 @@ int main(int argc, const char *argv[])
 	uint16_t unused_arg_count = 0;
 	size_t temp_length = 0;
 	uint16_t temp_index = 0;
+	cipher_type prev_cipher_type = undefined;
 
 	argument_type *args = smalloc(sizeof(argument_type) * (unsigned)argc);
 	args[0] = file_executed;
@@ -27,6 +28,17 @@ int main(int argc, const char *argv[])
 	for (i = 1; i < argc; i++)
 	{
 		if (cmp(argv[i], "-f", "--file"))
+		{
+			args[i] = used_flag;
+			if (i + 1 < argc)
+			{
+			}
+			else
+			{
+				fprintf(stderr, "missing arguments for file reading\n");
+			}
+		}
+		else if (cmp(argv[i], "-s", "--string"))
 		{
 			args[i] = used_flag;
 			if (i + 1 < argc)
@@ -63,7 +75,10 @@ int main(int argc, const char *argv[])
 	}
 	free(args);
 
-	if (menu(&str, strlen(str)) == undefined)
+
+	prev_cipher_type = menu(&str, strlen(str));
+
+	if (prev_cipher_type == undefined)
 	{
 		if (str == NULL)
 		{
