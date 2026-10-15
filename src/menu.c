@@ -10,11 +10,12 @@
 	printf("Converting %s\n", *str); \
 	display_menu(menu_items, types);
 
-void menu(char **str, size_t length)
+cipher_type menu(char **str, size_t length)
 {
+	cipher_type ret = undefined;
 	uint32_t i = 0;
 	int32_t input = 0;
-	uint32_t index_picked = 0;
+	int32_t index_user_picked = 0;
 	Bool success = False;
 
 	/* this is a default setting for the menu and it will never change */
@@ -38,7 +39,6 @@ void menu(char **str, size_t length)
 
 	printf("num items: %u\n", num_items);
 
-	
 	do 
 	{
 		display:
@@ -48,32 +48,37 @@ void menu(char **str, size_t length)
 			goto display;
 	}
 	while (input < 0 || input >= (signed)num_items);
-	if (input == 0)
-	{
-		printf("Exiting...\n");
-		free(*str);
-		*str = NULL;
-		return;
-	}
-	index_picked = (unsigned)input - 1;
+	index_user_picked = input - 1;
 
-	printf("%s\n", menu_items[index_picked].plain_text);
+	if (index_user_picked >= 0 && index_user_picked < INIT_MENU_ITEMS)
+	{
+		ret = types[index_user_picked];
+	}
+	else
+	{
+		ret = undefined;
+	}
 
 	free(*str);
+	*str = NULL;
 
 	/* write the pointer in the struct to the str in order to avoid copying strings over */
-	*str = menu_items[index_picked].plain_text;
-	menu_items[index_picked].plain_text = NULL;
+	if (index_user_picked >= 0)
+	{
+		*str = menu_items[index_user_picked].plain_text;
+		menu_items[index_user_picked].plain_text = NULL;
+	}
 
 	for (i = 0; i < num_items; i++)
 	{
-		if (i == index_picked)
+		if ((signed)i == index_user_picked && index_user_picked != -1)
 		{
 			continue;
 		}
 		free(menu_items[i].plain_text);
 	}
 	free(menu_items);
+	return ret;
 }
 
 void display_menu(struct cipher_menu_item *menu_items, cipher_type *types)

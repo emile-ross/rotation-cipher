@@ -52,6 +52,7 @@ int main(int argc, const char *argv[])
 		}
 	}
 
+	/* get str from the unused argument passed into the program */
 	if (unused_arg_count == 1)
 	{
 		temp_index = argtype_to_index(argc, args, unused_argument);
@@ -62,7 +63,20 @@ int main(int argc, const char *argv[])
 	}
 	free(args);
 
-	menu(&str, strlen(str));
+	if (menu(&str, strlen(str)) == undefined)
+	{
+		if (str == NULL)
+		{
+			printf("Exiting\n");
+			return 0;
+		}
+		else
+		{
+			fprintf(stderr, "An error occured\n");
+			free(str);
+			return 1;
+		}
+	}
 
 	printf("%s\n", str);
 

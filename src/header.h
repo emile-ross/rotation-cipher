@@ -16,7 +16,7 @@ void decipher(char **dst, char *src, size_t *length, cipher_type cipher);
 	unsigned char * base64_encode(const unsigned char *src, size_t len, size_t *out_len);
 	unsigned char * base64_decode(const unsigned char *src, size_t len, size_t *out_len);
 
-void menu(char **str, size_t length);
+cipher_type menu(char **str, size_t length);
 void display_menu(struct cipher_menu_item *menu_items, cipher_type *types);
 
 /* compare.c */
