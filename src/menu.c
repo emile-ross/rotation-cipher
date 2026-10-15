@@ -30,14 +30,31 @@ void menu(char *str, size_t length)
 
 	do
 	{
+		uint32_t num_items = 0;
 		struct cipher_menu_item *menu_items = (struct cipher_menu_item*)scalloc(INIT_MENU_ITEMS, sizeof(cipher_menu_item));
 		for (i = 0; types[i] != undefined; i++)
 		{
 			menu_items[i].string_length = length;
 			decipher(&(menu_items[i].plain_text), str, &(menu_items[i].string_length), types[i]);
+			num_items++;
 		}
 
-		DISPLAY_MENU();
+		printf("num items: %u\n", num_items);
+
+		do 
+		{
+			DISPLAY_MENU();
+			input = getint(&success);
+		}
+		while (input >= num_items - 1);
+
+		printf("%s\n", menu_items[input].plain_text);
+
+		for (i = 0; i < num_items; i++)
+		{
+			free(menu_items[i].plain_text);
+		}
+		free(menu_items);
 	}
 	while (exiting_bl);
 	printf("Exiting...\n");
