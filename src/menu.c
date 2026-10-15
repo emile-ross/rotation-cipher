@@ -16,8 +16,6 @@ void menu(char *str, size_t length)
 	Bool success = False;
 	Bool exiting_bl = False;
 
-	char *temp = NULL;
-
 	/* this is a default setting for the menu and it will never change */
 	cipher_type types[INIT_MENU_ITEMS] = 
 	{
@@ -43,12 +41,15 @@ void menu(char *str, size_t length)
 
 		do 
 		{
+			display:
 			DISPLAY_MENU();
 			input = getint(&success);
+			if (!(success))
+				goto display;
 		}
-		while (input >= num_items - 1);
+		while (input < 1 || input >= (signed)num_items);
 
-		printf("%s\n", menu_items[input].plain_text);
+		printf("%s\n", menu_items[input - 1].plain_text);
 
 		for (i = 0; i < num_items; i++)
 		{

@@ -32,6 +32,8 @@ char *get_file_content(const char *filename)
 				input_buffer[input_buffer_size] = '\0';
 				input_buffer[input_buffer_size - 1] = '\0';
 				buffer_size_increment <<= 1;
+
+				/* just a check for a ridiculously high size */
 				if (buffer_size_increment > 12000)
 				{
 					fprintf(stderr, "Invalid size greater than 12000 bytes\n");

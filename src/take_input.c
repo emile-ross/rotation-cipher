@@ -22,6 +22,7 @@ int32_t getint(Bool *success)
 	if (!(scmp(endptr, "\n")))
 	{
 		*(success) = False;
+		free(input_buf);
 		return 1;
 	}
 
@@ -29,6 +30,7 @@ int32_t getint(Bool *success)
 	if (temp < INT32MAX && temp > INT32MIN)
 	{
 		*(success) = True;
+		free(input_buf);
 		return (int32_t)temp;
 	}
 
