@@ -18,7 +18,6 @@ int32_t getint(Bool *success)
 	}
 
 	temp = strtol(input_buf, &endptr, 10);
-	free(input_buf);
 	if (!(*endptr == '\0'))
 	{
 		*(success) = False;
@@ -26,7 +25,10 @@ int32_t getint(Bool *success)
 	}
 
 	if (temp < INT32MAX && temp > INT32MIN)
+	{
+		*(success) = True;
 		return (int32_t)temp;
+	}
 
 	*(success) = False;
 
