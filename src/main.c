@@ -59,7 +59,7 @@ int main(int argc, const char *argv[])
 			}
 			else
 			{
-				fprintf(stderr, "missing arguments for string\n");
+				fprintf(stderr, "arguments expected following the \'%s\' flag\n", argv[i]);
 			}
 		}
 		else
@@ -70,13 +70,17 @@ int main(int argc, const char *argv[])
 	}
 
 	/* get str from the unused argument passed into the program */
-	if (unused_arg_count == 1)
+	if (str == NULL)
 	{
-		temp_index = argtype_to_index(argc, args, unused_argument);
-		temp_length = strlen(argv[temp_index]) + 1;
-		str = smalloc(temp_length);
-		strncpy(str, argv[temp_index], temp_length);
-		str[temp_length -1] = '\0';
+
+		if (unused_arg_count == 1)
+		{
+			temp_index = argtype_to_index(argc, args, unused_argument);
+			temp_length = strlen(argv[temp_index]) + 1;
+			str = smalloc(temp_length);
+			strncpy(str, argv[temp_index], temp_length);
+			str[temp_length -1] = '\0';
+		}
 	}
 	free(args);
 
