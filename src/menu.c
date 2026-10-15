@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 #define INIT_MENU_ITEMS (6)
 
 #define DISPLAY_MENU() \
@@ -13,8 +14,8 @@ void menu(char **str, size_t length)
 {
 	uint32_t i = 0;
 	int32_t input = 0;
+	uint32_t index_picked = 0;
 	Bool success = False;
-	size_t new_length = 0;
 
 	/* this is a default setting for the menu and it will never change */
 	cipher_type types[INIT_MENU_ITEMS] = 
@@ -37,6 +38,7 @@ void menu(char **str, size_t length)
 
 	printf("num items: %u\n", num_items);
 
+	
 	do 
 	{
 		display:
@@ -53,21 +55,22 @@ void menu(char **str, size_t length)
 		*str = NULL;
 		return;
 	}
+	index_picked = (unsigned)input - 1;
 
-	printf("%s\n", menu_items[input - 1].plain_text);
-	new_length = 1 + strlen(menu_items[input - 1].plain_text);
+	printf("%s\n", menu_items[index_picked].plain_text);
 
-	if (new_length > length)
-	{
-		printf("old len: %lu new len: %lu\n", length, new_length);
-		srealloc(*str, new_length);
-		strncpy(*str, menu_items[input - 1].plain_text, new_length - 1);
-		length = new_length;
-		str[length] = '\0';
-	}
+	free(*str);
+
+	/* write the pointer in the struct to the str in order to avoid copying strings over */
+	*str = menu_items[index_picked].plain_text;
+	menu_items[index_picked].plain_text = NULL;
 
 	for (i = 0; i < num_items; i++)
 	{
+		if (i == index_picked)
+		{
+			continue;
+		}
 		free(menu_items[i].plain_text);
 	}
 	free(menu_items);

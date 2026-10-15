@@ -9,7 +9,7 @@
 int main(int argc, const char *argv[])
 {
 	uint16_t i = 0;
-	char *str = NULL;
+	char *str = NULL;	/* gets edited by the menu() fn & main() */
 	char *file_content = NULL;
 	uint16_t unused_arg_count = 0;
 	size_t temp_length = 0;
@@ -60,10 +60,12 @@ int main(int argc, const char *argv[])
 		strncpy(str, argv[temp_index], temp_length);
 		str[temp_length -1] = '\0';
 	}
-
-	menu(str, strlen(str));
-
 	free(args);
+
+	menu(&str, strlen(str));
+
+	printf("%s\n", str);
+
 	free(str);
 
 	return 0;
