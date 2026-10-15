@@ -32,18 +32,10 @@ int main(int argc, const char *argv[])
 			args[i] = used_flag;
 			if (i + 1 < argc)
 			{
-			}
-			else
-			{
-				fprintf(stderr, "missing arguments for file reading\n");
-			}
-		}
-		else if (cmp(argv[i], "-s", "--string"))
-		{
-			args[i] = used_flag;
-			if (i + 1 < argc)
-			{
 				file_content = get_file_content(argv[i + 1]);
+
+				args[i + 1] = used_argument;
+
 				if (file_content == NULL)
 				{
 					fprintf(stderr, "get_file_content() returned NULL\n");
@@ -55,6 +47,19 @@ int main(int argc, const char *argv[])
 			else
 			{
 				fprintf(stderr, "missing arguments for file reading\n");
+			}
+		}
+		else if (cmp(argv[i], "-s", "--string"))
+		{
+			args[i] = used_flag;
+			if (i + 1 < argc)
+			{
+				temp_length = strlen(argv[i + 1]);
+				str = smalloc(temp_length);
+			}
+			else
+			{
+				fprintf(stderr, "missing arguments for string\n");
 			}
 		}
 		else
