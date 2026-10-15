@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define INIT_MENU_ITEMS (4)
+#define INIT_MENU_ITEMS (6)
 
 #define DISPLAY_MENU() \
 	printf("Converting %s\n", str); \
@@ -14,9 +14,12 @@ void menu(char *str, size_t length)
 	uint32_t i = 0;
 	int32_t input = 0;
 	Bool success = False;
+	Bool exiting_bl = False;
+
+	char *temp = NULL;
 
 	/* this is a default setting for the menu and it will never change */
-	cipher_type types[6] = 
+	cipher_type types[INIT_MENU_ITEMS] = 
 	{
 		ROT_1,
 		ROT_13,
@@ -33,31 +36,10 @@ void menu(char *str, size_t length)
 			menu_items[i].string_length = length;
 			decipher(&(menu_items[i].plain_text), str, &(menu_items[i].string_length), types[i]);
 		}
-		types[i] = undefined;
 
-		do
-		{
-			DISPLAY_MENU();
-			input = getint(&success);
-			/* getint() has blocking behaviour */
-		}
-		while (!(success) || input < 0 || input > (signed)i);
-		/* validate user input and ensure it is within bounds */
-
-		printf("Valid input \n");
-		if (input != 0)
-		{
-			input--;
-			safe_mem_copy(str, &length, menu_items[input].plain_text, strlen(menu_items[input].plain_text));
-		}
-
-		/* free all menu items & menu_items */
-		for (i = 0; types[i] != undefined; i++)
-		{
-			free(menu_items[i].plain_text);
-		}
+		DISPLAY_MENU();
 	}
-	while (input != 0);
+	while (exiting_bl);
 	printf("Exiting...\n");
 }
 

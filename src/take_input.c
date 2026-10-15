@@ -16,14 +16,16 @@ int32_t getint(Bool *success)
 		free(input_buf);
 		return 1;
 	}
+	printf("INPUT: %s\n", input_buf);
 
 	temp = strtol(input_buf, &endptr, 10);
-	if (!(*endptr == '\0'))
+	if (!(scmp(endptr, "\n")))
 	{
 		*(success) = False;
 		return 1;
 	}
 
+	printf("INPUT: %ld\n", temp);
 	if (temp < INT32MAX && temp > INT32MIN)
 	{
 		*(success) = True;

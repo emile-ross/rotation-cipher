@@ -74,7 +74,7 @@ void decipher(char **dst, char *src, size_t *length, cipher_type cipher)
 
 			*dst = (char*)base64_decode((unsigned char *)src, *length, length);
 			break;
-			      }
+		}
 		case RSA:
 			fprintf(stderr, "RSA is not supported. yet...\n");
 			break;
