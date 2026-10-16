@@ -4,11 +4,13 @@
 #include <string.h>
 
 #define DEFAULT_BUFFER_SIZE (32)
+void block(void);
 
 int32_t getinput(input_types *action)
 {
 	char *input_buf = smalloc(DEFAULT_BUFFER_SIZE);
 	long temp = 0;
+	size_t input_length = 0;
 
 	char *endptr = NULL;
 	if (fgets(input_buf, DEFAULT_BUFFER_SIZE, stdin) == NULL)
@@ -17,15 +19,14 @@ int32_t getinput(input_types *action)
 		free(input_buf);
 		return -1;
 	}
+	input_length = strlen(input_buf);
 
-	if (strlen(input_buf) <= 1)
+	if (input_length <= 1)
 	{
 		(*action) = MENU_EMPTY;
 		free(input_buf);
 		return -1;
 	}
-	printf("INPUT: %s\n", input_buf);
-
 	temp = strtol(input_buf, &endptr, 10);
 	if (!(scmp(endptr, "\n")))
 	{
@@ -50,16 +51,20 @@ int32_t getinput(input_types *action)
 				(*action) = MENU_EMPTY;
 				break;
 			case 'c':
-				fprintf(stderr, "Copying is currently unsupported\n");
+				fprintf(stderr, "Copying to clipboard is currently unsupported\n");
+				fprintf(stderr, "There are some plans for supporting it in the future however\n");
 				block();
+				break;
 
+			default:
+				(*action) = MENU_INVALID;
+				break;
 			}
 		}
 		free(input_buf);
 		return -1;
 	}
 
-	printf("INPUT: %ld\n", temp);
 	if (temp < INT32MAX && temp > INT32MIN)
 	{
 		(*action) = MENU_ENTRY;
@@ -76,5 +81,6 @@ void block(void)
 {
 	char str[2];
 	printf("Press enter to continue\n");
+	/* blocks input until we get a \n */
 	fgets(str, 2, stdin);
 }

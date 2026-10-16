@@ -4,6 +4,7 @@
 #include <string.h>
 
 
+/* is replaced everywhere at compile time */
 #define INIT_MENU_ITEMS (6)
 
 #define DISPLAY_MENU() \
@@ -51,27 +52,33 @@ cipher_type menu(char **str, size_t length)
 		input = getinput(&action);
 		if (action == MENU_INVALID)
 			goto display;
+		if (action == MENU_EXIT)
+			break;
 	}
-	while (input < 0 || input >= (signed)num_items);
-	index_user_picked = input - 1;
-
-	if (index_user_picked >= 0 && index_user_picked < INIT_MENU_ITEMS)
-	{
-		ret = types[index_user_picked];
-	}
-	else
-	{
-		ret = undefined;
-	}
+	while (input < 0 || input > (signed)num_items);
 
 	free(*str);
 	*str = NULL;
 
-	/* write the pointer in the struct to the str in order to avoid copying strings over */
-	if (index_user_picked >= 0)
+	if (action == MENU_ENTRY)
 	{
-		*str = menu_items[index_user_picked].plain_text;
-		menu_items[index_user_picked].plain_text = NULL;
+		index_user_picked = input - 1;
+
+		if (index_user_picked >= 0 && index_user_picked < INIT_MENU_ITEMS)
+		{
+			ret = types[index_user_picked];
+		}
+		else
+		{
+			ret = undefined;
+		}
+
+		/* write the pointer in the struct to the str in order to avoid copying strings over */
+		if (index_user_picked >= 0)
+		{
+			*str = menu_items[index_user_picked].plain_text;
+			menu_items[index_user_picked].plain_text = NULL;
+		}
 	}
 
 	for (i = 0; i < num_items; i++)
