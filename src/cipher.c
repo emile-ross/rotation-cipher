@@ -55,7 +55,7 @@ void decipher(char **dst, char *src, size_t *length, cipher_type cipher)
 	switch (cipher)
 	{
 		case ROT_47:
-			rotate(dst, src, *length, "!", 48, -24);
+			rotate(dst, src, *length, "!", 48, -23);
 			break;
 		case ROT_48:
 			rotate(dst, src, *length, "!", 48, -24);
@@ -73,6 +73,40 @@ void decipher(char **dst, char *src, size_t *length, cipher_type cipher)
 
 
 			*dst = (char*)base64_decode((unsigned char *)src, *length, length);
+			break;
+		}
+		case RSA:
+			fprintf(stderr, "RSA is not supported. yet...\n");
+			break;
+
+		case undefined:
+		default:
+			break;
+	}
+}
+
+void to_cipher(char **dst, char *src, size_t *length, cipher_type cipher)
+{
+	/* TODO: avoid recalculation of string length */
+	switch (cipher)
+	{
+		case ROT_47:
+			rotate(dst, src, *length, "!", 48, 23);
+			break;
+		case ROT_48:
+			rotate(dst, src, *length, "!", 48, 24);
+			break;
+		case ROT_1:
+			rotate(dst, src, *length, "aA", 26, -1);
+			break;
+		case ROT_24:
+			rotate(dst, src, *length, "aA", 26, -24);
+			break;
+		case ROT_13:
+			rotate(dst, src, *length, "aA", 26, -13);
+			break;
+		case BASE_64: {
+			*dst = (char*)base64_encode((unsigned char *)src, *length, length);
 			break;
 		}
 		case RSA:
