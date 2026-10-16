@@ -85,8 +85,11 @@ int main(int argc, const char *argv[])
 	free(args);
 
 
-	prev_cipher_type = menu(&str, strlen(str));
-
+	do 
+	{
+		prev_cipher_type = menu(&str, strlen(str));
+	}
+	while (prev_cipher_type != undefined);
 	if (prev_cipher_type == undefined)
 	{
 		if (str == NULL)
