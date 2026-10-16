@@ -21,6 +21,7 @@ int32_t getinput(input_types *action)
 	if (strlen(input_buf) <= 1)
 	{
 		(*action) = MENU_EMPTY;
+		free(input_buf);
 		return -1;
 	}
 	printf("INPUT: %s\n", input_buf);
@@ -30,6 +31,30 @@ int32_t getinput(input_types *action)
 	{
 		/* handle letters that could be entered */
 		(*action) = MENU_INVALID;
+		if (input_length >= 2)
+		{
+			switch (input_buf[0])
+			{
+			case 'Q':
+			case 'q':
+				(*action) = MENU_EXIT;
+				break;
+			case 'b':
+			case 'u':
+			case 'r':
+				(*action) = MENU_UNDO;
+				break;
+
+			case ' ':
+			case '\t':
+				(*action) = MENU_EMPTY;
+				break;
+			case 'c':
+				fprintf(stderr, "Copying is currently unsupported\n");
+				block();
+
+			}
+		}
 		free(input_buf);
 		return -1;
 	}
@@ -45,4 +70,11 @@ int32_t getinput(input_types *action)
 	(*action) = MENU_INVALID;
 
 	return 1;
+}
+
+void block(void)
+{
+	char str[2];
+	printf("Press enter to continue\n");
+	fgets(str, 2, stdin);
 }
