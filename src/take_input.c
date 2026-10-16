@@ -29,7 +29,7 @@ int32_t getinput(input_types *action)
 	if (!(scmp(endptr, "\n")))
 	{
 		/* handle letters that could be entered */
-		*(success) = False;
+		(*action) = MENU_INVALID;
 		free(input_buf);
 		return -1;
 	}
@@ -37,12 +37,12 @@ int32_t getinput(input_types *action)
 	printf("INPUT: %ld\n", temp);
 	if (temp < INT32MAX && temp > INT32MIN)
 	{
-		*(success) = True;
+		(*action) = MENU_ENTRY;
 		free(input_buf);
 		return (int32_t)temp;
 	}
 
-	*(success) = False;
+	(*action) = MENU_INVALID;
 
 	return 1;
 }

@@ -7,6 +7,7 @@
 #define INIT_MENU_ITEMS (6)
 
 #define DISPLAY_MENU() \
+	printf("\033[2J\033[H"); /* clear */ \
 	printf("Converting %s\n", *str); \
 	display_menu(menu_items, types);
 
@@ -16,7 +17,7 @@ cipher_type menu(char **str, size_t length)
 	uint32_t i = 0;
 	int32_t input = 0;
 	int32_t index_user_picked = 0;
-	Bool success = False;
+	input_types action = MENU_INVALID;
 
 	/* this is a default setting for the menu and it will never change */
 	cipher_type types[INIT_MENU_ITEMS] = 
@@ -34,17 +35,21 @@ cipher_type menu(char **str, size_t length)
 	{
 		menu_items[i].string_length = length;
 		decipher(&(menu_items[i].plain_text), *str, &(menu_items[i].string_length), types[i]);
-		num_items++;
+		if (menu_items[i].plain_text != NULL)
+		{
+			num_items++;
+		}
 	}
 
-	printf("num items: %u\n", num_items);
 
 	do 
 	{
 		display:
 		DISPLAY_MENU();
-		input = getinput(&success);
-		if (!(success))
+		printf("num items: %u\n", num_items);
+		action = MENU_INVALID;
+		input = getinput(&action);
+		if (action == MENU_INVALID)
 			goto display;
 	}
 	while (input < 0 || input >= (signed)num_items);
@@ -84,9 +89,6 @@ cipher_type menu(char **str, size_t length)
 void display_menu(struct cipher_menu_item *menu_items, cipher_type *types)
 {
 	uint32_t i = 0;
-
-	/* clear screen */
-	printf("\033[2J\033[H");
 
 	for (i = 0; types[i] != undefined; i++)
 	{
