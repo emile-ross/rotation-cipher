@@ -51,7 +51,6 @@ Bool bound(const char c, const int lb, const int charset)
 
 void decipher(char **dst, char *src, size_t *length, cipher_type cipher)
 {
-	/* TODO: avoid recalculation of string length */
 	switch (cipher)
 	{
 		case ROT_47:
@@ -87,7 +86,6 @@ void decipher(char **dst, char *src, size_t *length, cipher_type cipher)
 
 void to_cipher(char **dst, char *src, size_t *length, cipher_type cipher)
 {
-	/* TODO: avoid recalculation of string length */
 	switch (cipher)
 	{
 		case ROT_47:

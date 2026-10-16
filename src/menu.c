@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 /* is replaced everywhere at compile time */
 #define INIT_MENU_ITEMS (6)
 
@@ -55,13 +54,19 @@ cipher_type menu(char **str, size_t length)
 		input = getinput(&action);
 		if (action == MENU_INVALID)
 			goto display;
+
 		if (action == MENU_EXIT)
 			break;
+		if (action == MENU_UNDO)
+			break;
 	}
-	while (input < 0 || input > (signed)num_items);
+	while ((input < 0 || input > (signed)num_items));
 
-	free(*str);
-	*str = NULL;
+	if (action != MENU_UNDO)
+	{
+		free(*str);
+		*str = NULL;
+	}
 
 	if (action == MENU_ENTRY)
 	{
