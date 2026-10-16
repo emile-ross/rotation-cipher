@@ -13,6 +13,7 @@ int32_t getinput(input_types *action)
 	size_t input_length = 0;
 
 	char *endptr = NULL;
+	printf("input | entree: ");
 	if (fgets(input_buf, DEFAULT_BUFFER_SIZE, stdin) == NULL)
 	{
 		(*action) = MENU_INVALID;
@@ -27,6 +28,7 @@ int32_t getinput(input_types *action)
 		free(input_buf);
 		return -1;
 	}
+
 	temp = strtol(input_buf, &endptr, 10);
 	if (!(scmp(endptr, "\n")))
 	{
@@ -38,6 +40,9 @@ int32_t getinput(input_types *action)
 			{
 			case 'Q':
 			case 'q':
+			case '0':
+			case 'S':
+			case 's':
 				(*action) = MENU_EXIT;
 				break;
 			case 'b':
@@ -50,6 +55,10 @@ int32_t getinput(input_types *action)
 			case '\t':
 				(*action) = MENU_EMPTY;
 				break;
+
+			case 'Y':
+			case 'y':
+			case 'C':
 			case 'c':
 				fprintf(stderr, "Copying to clipboard is currently unsupported\n");
 				fprintf(stderr, "There are some plans for supporting it in the future however\n");

@@ -12,6 +12,11 @@
 	printf("Converting %s\n", *str); \
 	display_menu(menu_items, types);
 
+#define FREE_ALL() \
+	for (i = 0; i < num_items; i++) \
+		free(menu_items[i].plain_text); \
+	free(menu_items);
+
 cipher_type menu(char **str, size_t length)
 {
 	cipher_type ret = undefined;
@@ -42,12 +47,10 @@ cipher_type menu(char **str, size_t length)
 		}
 	}
 
-
 	do 
 	{
 		display:
 		DISPLAY_MENU();
-		printf("num items: %u\n", num_items);
 		action = MENU_INVALID;
 		input = getinput(&action);
 		if (action == MENU_INVALID)
@@ -79,16 +82,20 @@ cipher_type menu(char **str, size_t length)
 			*str = menu_items[index_user_picked].plain_text;
 			menu_items[index_user_picked].plain_text = NULL;
 		}
+		for (i = 0; i < num_items; i++)
+		{
+			if ((signed)i == index_user_picked && index_user_picked != -1)
+				continue;
+
+			free(menu_items[i].plain_text);
+		}
+	}
+	else if (action == MENU_EXIT)
+	{
+		FREE_ALL();
+		return undefined;
 	}
 
-	for (i = 0; i < num_items; i++)
-	{
-		if ((signed)i == index_user_picked && index_user_picked != -1)
-		{
-			continue;
-		}
-		free(menu_items[i].plain_text);
-	}
 	free(menu_items);
 	return ret;
 }
