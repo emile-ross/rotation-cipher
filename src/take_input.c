@@ -11,16 +11,18 @@ int32_t getint(Bool *success)
 	long temp = 0;
 
 	char *endptr = NULL;
-	do
+	if (fgets(input_buf, DEFAULT_BUFFER_SIZE, stdin) == NULL)
 	{
-		if (fgets(input_buf, DEFAULT_BUFFER_SIZE, stdin) == NULL)
-		{
-			*(success) = False;
-			free(input_buf);
-			return 1;
-		}
+		*(success) = False;
+		free(input_buf);
+		return 1;
 	}
-	while (strlen(input_buf) <= 1);
+
+	if (strlen(input_buf) <= 1)
+	{
+		*(success) = False;
+		return 0;
+	}
 	printf("INPUT: %s\n", input_buf);
 
 	temp = strtol(input_buf, &endptr, 10);

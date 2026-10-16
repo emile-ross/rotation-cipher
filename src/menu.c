@@ -84,6 +84,10 @@ cipher_type menu(char **str, size_t length)
 void display_menu(struct cipher_menu_item *menu_items, cipher_type *types)
 {
 	uint32_t i = 0;
+
+	/* clear screen */
+	printf("\033[2J\033[H");
+
 	for (i = 0; types[i] != undefined; i++)
 	{
 		if (types[i] == BASE_64)
