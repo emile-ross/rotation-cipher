@@ -43,7 +43,7 @@ cipher_type menu(char **str, size_t length)
 	{
 		display:
 		DISPLAY_MENU();
-		input = getint(&success);
+		input = getinput(&success);
 		if (!(success))
 			goto display;
 	}

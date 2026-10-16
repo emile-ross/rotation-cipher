@@ -32,3 +32,12 @@ typedef enum
 	used_argument,
 	unused_argument
 } argument_type;
+
+typedef enum
+{
+	MENU_INVALID = 0,
+	MENU_EMPTY,
+	MENU_EXIT,
+	MENU_UNDO,
+	MENU_ENTRY
+} input_types;

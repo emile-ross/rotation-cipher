@@ -35,7 +35,7 @@ void display_menu(struct cipher_menu_item *menu_items, cipher_type *types);
 
 
 /* take_input.c */
-	int32_t getint(Bool *success);
+	int32_t getinput(input_types *action);
 
 /* string copy */
 	void safe_mem_copy(char *dst, size_t *dst_size, char *src, size_t src_size);
