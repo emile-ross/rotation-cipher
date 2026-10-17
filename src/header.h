@@ -41,3 +41,7 @@ void display_menu(struct cipher_menu_item *menu_items, cipher_type *types);
 
 /* string copy */
 	void safe_mem_copy(char *dst, size_t *dst_size, char *src, size_t src_size);
+
+
+/* in main.c */
+	void display_help(void);

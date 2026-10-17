@@ -62,6 +62,10 @@ int main(int argc, const char *argv[])
 				fprintf(stderr, "arguments expected following the \'%s\' flag\n", argv[i]);
 			}
 		}
+		else if (cmp(argv[i], "-H", "--help"))
+		{
+			display_help();
+		}
 		else
 		{
 			args[i] = unused_argument;
