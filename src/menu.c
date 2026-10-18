@@ -103,11 +103,8 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type *pr
 	{
 		to_cipher(&temp, *str, &length, *prev_cipher_type);
 		temp[length] = '\0';
-		if (temp[length - 1] == '\n')
-		{
-			temp[length - 1] = '\0';
-			length--;
-		}
+
+		strip_newline(temp, length);
 
 		*str = temp;
 
@@ -148,5 +145,17 @@ void strip_newline(char *string, size_t length)
 
 	for (i = (uint32_t)length; i > 0; i--)
 	{
+		if (string[i] == '\n' || string[i] == '\r')
+		{
+			string[i] = '\0';
+		}
+		else if (string[i] == '\0')
+		{
+			continue;
+		}
+		else 
+		{
+			break;
+		}
 	}
 }
