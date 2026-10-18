@@ -102,7 +102,10 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type *pr
 	else if (local_action == MENU_UNDO)
 	{
 		to_cipher(&temp, *str, &length, *prev_cipher_type);
-		exit(0);
+		*str = temp;
+
+		/* this will do -1 in the future array of actions in main.c */
+		return previous_cipher;
 	}
 	else if (local_action == MENU_EXIT)
 	{

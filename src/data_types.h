@@ -1,6 +1,7 @@
 typedef enum
 {
 	undefined = 0,
+	previous_cipher = 1,
 	ROT_1,
 	ROT_13,
 	ROT_24,

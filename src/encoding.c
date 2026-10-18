@@ -69,8 +69,6 @@ void decipher(char **dst, char *src, size_t *length, cipher_type cipher)
 			rotate(dst, src, *length, "aA", 26, 13);
 			break;
 		case BASE_64: {
-
-
 			*dst = (char*)base64_decode((unsigned char *)src, *length, length);
 			break;
 		}
@@ -78,6 +76,10 @@ void decipher(char **dst, char *src, size_t *length, cipher_type cipher)
 			fprintf(stderr, "RSA is not supported. yet...\n");
 			break;
 
+		case previous_cipher:
+			/* logic error (should never be triggered) */
+			fprintf(stderr, "Invalid cipher_type in decipher() fn\nprevious_cipher should be handled in main.c\n");
+			break;
 		case undefined:
 		default:
 			break;
@@ -111,6 +113,11 @@ void to_cipher(char **dst, char *src, size_t *length, cipher_type cipher)
 			fprintf(stderr, "RSA is not supported. yet...\n");
 			break;
 
+		case previous_cipher:
+			/* logic error (should never be triggered) */
+			fprintf(stderr, "Invalid cipher_type in to_cipher() fn\nprevious_cipher should be handled in main.c\n");
+			fprintf(stderr, "This is like trying to undo undo\n");
+			break;
 		case undefined:
 		default:
 			break;
