@@ -91,11 +91,12 @@ int main(int argc, const char *argv[])
 
 	do 
 	{
-		prev_cipher_type = menu(&str, strlen(str), &action);
+		prev_cipher_type = menu(&str, strlen(str), &action, &prev_cipher_type);
 
-		if (*action == MENU_UNDO)
+		if (action == MENU_UNDO)
 		{
-			decipher();
+			printf("new string: %s\n", str);
+			block();
 		}
 	}
 	while (prev_cipher_type != undefined);

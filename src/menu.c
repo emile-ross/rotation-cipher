@@ -16,7 +16,7 @@
 		free(menu_items[i].plain_text); \
 	free(menu_items);
 
-cipher_type menu(char **str, size_t length, input_types action, cipher_type *prev_cipher_type)
+cipher_type menu(char **str, size_t length, input_types *action, cipher_type *prev_cipher_type)
 {
 	cipher_type ret = undefined;
 	uint32_t i = 0;
@@ -64,13 +64,15 @@ cipher_type menu(char **str, size_t length, input_types action, cipher_type *pre
 	}
 	while ((input < 0 || input > (signed)num_items));
 
-	if (action != MENU_UNDO)
+	if (local_action != MENU_UNDO)
 	{
 		free(*str);
 		*str = NULL;
 	}
 
-	if (action == MENU_ENTRY)
+	*action = local_action;
+
+	if (local_action == MENU_ENTRY)
 	{
 		index_user_picked = input - 1;
 
@@ -97,13 +99,12 @@ cipher_type menu(char **str, size_t length, input_types action, cipher_type *pre
 			free(menu_items[i].plain_text);
 		}
 	}
-	else if (action == MENU_UNDO)
+	else if (local_action == MENU_UNDO)
 	{
-		decipher(str, &length);
-		decipher(&temp, str, &length, *prev_cipher_type);
+		to_cipher(&temp, *str, &length, *prev_cipher_type);
 		exit(0);
 	}
-	else if (action == MENU_EXIT)
+	else if (local_action == MENU_EXIT)
 	{
 		FREE_ALL();
 		return undefined;
