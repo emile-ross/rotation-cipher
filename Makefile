@@ -2,7 +2,7 @@ CC = cc
 
 BIN_NAME := rot-solver
 
-CFLAGS := -O2 -Wpedantic -Wswitch-enum -Wall -Wextra -Wconversion -std=c89 -g
+CFLAGS := -O2 -Wpedantic -Wswitch-enum -Wall -Wextra -Wconversion -g
 
 src_files = arguments base64 compare encoding file_reading main memory_safety menu safe_copy take_input
 
@@ -11,10 +11,12 @@ SRCS := $(addsuffix .c, $(SRC_PATH))
 
 .PHONY: all
 all: 
-	$(CC) $(SRCS) -o $(BIN_NAME) $(CFLAGS) -Werror
+	$(CC) $(SRCS) -o $(BIN_NAME) $(CFLAGS) -std=c89 -Werror
 
 .PHONY: warn
 warn: 
+	@# this simply compiles while ignoring the warnings
+	@# only use this for testing
 	$(CC) $(SRCS) -o $(BIN_NAME) $(CFLAGS)
 
 .PHONY: clean

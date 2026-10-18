@@ -102,6 +102,13 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type *pr
 	else if (local_action == MENU_UNDO)
 	{
 		to_cipher(&temp, *str, &length, *prev_cipher_type);
+		temp[length] = '\0';
+		if (temp[length - 1] == '\n')
+		{
+			temp[length - 1] = '\0';
+			length--;
+		}
+
 		*str = temp;
 
 		/* this will do -1 in the future array of actions in main.c */
@@ -110,6 +117,7 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type *pr
 	else if (local_action == MENU_EXIT)
 	{
 		FREE_ALL();
+		/* memory leak for items */
 		return undefined;
 	}
 

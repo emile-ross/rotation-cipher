@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MIN_ARS 3
+#define MIN_ARS (3)
+#define NUM_DEPTH_INCR (4)
 
 int main(int argc, const char *argv[])
 {
@@ -16,6 +17,17 @@ int main(int argc, const char *argv[])
 	uint16_t temp_index = 0;
 	cipher_type prev_cipher_type = undefined;
 	input_types action = MENU_INVALID;
+	/* TODO declare new array of actions 
+	 * this array will be used for the undo history
+	 * example: 
+	 * if the user enters base64 & then rot13
+	 * hist[0] base64
+	 * hist[1] rot13
+	 * hist[2] undefined
+	 * but if he undos rot13 we go back to
+	 * hist[0] base64
+	 * hist[1] undefined
+	 */
 
 	argument_type *args = smalloc(sizeof(argument_type) * (unsigned)argc);
 	args[0] = file_executed;
