@@ -117,8 +117,6 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type *pr
 	else if (local_action == MENU_EXIT)
 	{
 		FREE_ALL();
-		/* memory leak for items */
-		return undefined;
 	}
 
 	free(menu_items);
@@ -137,5 +135,18 @@ void display_menu(struct cipher_menu_item *menu_items, cipher_type *types)
 				continue;
 		}
 		printf("Item #%u: \'%s\'\n", i + 1, menu_items[i].plain_text);
+	}
+}
+
+void strip_newline(char *string, size_t length)
+{
+	uint32_t i = 0;
+	if (length <= 2)
+	{
+		return;
+	}
+
+	for (i = (uint32_t)length; i > 0; i--)
+	{
 	}
 }

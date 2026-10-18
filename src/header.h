@@ -20,6 +20,7 @@ void to_cipher(char **dst, char *src, size_t *length, cipher_type cipher);
 /* menu.c */
 	cipher_type menu(char **str, size_t length, input_types *action, cipher_type *prev_cipher_type);
 	void display_menu(struct cipher_menu_item *menu_items, cipher_type *types);
+	void strip_newline(char *string, size_t length);
 
 /* compare.c */
 	Bool scmp(const char *s1, const char *s2);
