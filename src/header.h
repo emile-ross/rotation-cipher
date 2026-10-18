@@ -17,8 +17,9 @@ void to_cipher(char **dst, char *src, size_t *length, cipher_type cipher);
 	unsigned char * base64_encode(const unsigned char *src, size_t len, size_t *out_len);
 	unsigned char * base64_decode(const unsigned char *src, size_t len, size_t *out_len);
 
-cipher_type menu(char **str, size_t length);
-void display_menu(struct cipher_menu_item *menu_items, cipher_type *types);
+/* menu.c */
+	cipher_type menu(char **str, size_t length, input_types action);
+	void display_menu(struct cipher_menu_item *menu_items, cipher_type *types);
 
 /* compare.c */
 	Bool scmp(const char *s1, const char *s2);

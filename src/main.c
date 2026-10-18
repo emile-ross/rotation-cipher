@@ -77,7 +77,6 @@ int main(int argc, const char *argv[])
 	/* get str from the unused argument passed into the program */
 	if (str == NULL)
 	{
-
 		if (unused_arg_count == 1)
 		{
 			temp_index = argtype_to_index(argc, args, unused_argument);
@@ -93,6 +92,11 @@ int main(int argc, const char *argv[])
 	do 
 	{
 		prev_cipher_type = menu(&str, strlen(str), &action);
+
+		if (*action == MENU_UNDO)
+		{
+			decipher();
+		}
 	}
 	while (prev_cipher_type != undefined);
 	if (prev_cipher_type == undefined)
