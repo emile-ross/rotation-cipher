@@ -16,13 +16,14 @@
 		free(menu_items[i].plain_text); \
 	free(menu_items);
 
-cipher_type menu(char **str, size_t length, input_types action)
+cipher_type menu(char **str, size_t length, input_types action, cipher_type *prev_cipher_type)
 {
 	cipher_type ret = undefined;
 	uint32_t i = 0;
 	int32_t input = 0;
 	int32_t index_user_picked = 0;
-	input_types action = MENU_INVALID;
+	char *temp = NULL;
+	input_types local_action = MENU_INVALID;
 
 	/* this is a default setting for the menu and it will never change */
 	cipher_type types[INIT_MENU_ITEMS] = 
@@ -50,14 +51,15 @@ cipher_type menu(char **str, size_t length, input_types action)
 	{
 		display:
 		DISPLAY_MENU();
-		action = MENU_INVALID;
-		input = getinput(&action);
-		if (action == MENU_INVALID)
+		local_action = MENU_INVALID;
+		input = getinput(&local_action);
+		if (local_action == MENU_INVALID)
 			goto display;
 
-		if (action == MENU_EXIT)
+		if (local_action == MENU_EXIT)
 			break;
-		if (action == MENU_UNDO)
+		/* if (*prev_cipher_type != undefined) */
+		if (local_action == MENU_UNDO)
 			break;
 	}
 	while ((input < 0 || input > (signed)num_items));
@@ -97,7 +99,8 @@ cipher_type menu(char **str, size_t length, input_types action)
 	}
 	else if (action == MENU_UNDO)
 	{
-		decipher(str, length);
+		decipher(str, &length);
+		decipher(&temp, str, &length, *prev_cipher_type);
 		exit(0);
 	}
 	else if (action == MENU_EXIT)
