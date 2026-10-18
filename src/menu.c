@@ -95,6 +95,11 @@ cipher_type menu(char **str, size_t length)
 			free(menu_items[i].plain_text);
 		}
 	}
+	else if (action == MENU_UNDO)
+	{
+		decipher(str, length);
+		exit(0);
+	}
 	else if (action == MENU_EXIT)
 	{
 		FREE_ALL();

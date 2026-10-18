@@ -15,6 +15,7 @@ int main(int argc, const char *argv[])
 	size_t temp_length = 0;
 	uint16_t temp_index = 0;
 	cipher_type prev_cipher_type = undefined;
+	input_types action = MENU_INVALID;
 
 	argument_type *args = smalloc(sizeof(argument_type) * (unsigned)argc);
 	args[0] = file_executed;
@@ -91,7 +92,7 @@ int main(int argc, const char *argv[])
 
 	do 
 	{
-		prev_cipher_type = menu(&str, strlen(str));
+		prev_cipher_type = menu(&str, strlen(str), &action);
 	}
 	while (prev_cipher_type != undefined);
 	if (prev_cipher_type == undefined)
