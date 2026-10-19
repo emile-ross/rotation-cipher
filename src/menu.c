@@ -13,9 +13,10 @@
 	display_menu(menu_items, types);
 
 #define FREE_ALL() \
-	for (i = 0; i < num_items; i++) \
+	for (i = 0; i < num_items; i++) { \
 		free(menu_items[i].plain_text); \
-	free(menu_items);
+		menu_items[i].plain_text = NULL; \
+	} free(menu_items); 
 
 
 cipher_type menu(char **str, size_t length, input_types *action, cipher_type prev_cipher_type)
@@ -60,7 +61,9 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 			goto display;
 
 		if (local_action == MENU_EXIT)
+		{
 			break;
+		}
 		else if (local_action == MENU_UNDO)
 		{
 			if (prev_cipher_type != undefined)
@@ -117,6 +120,8 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 		printf("%s\n", temp);
 		strip_newline(temp, length);
 
+		if (str != NULL)
+			free(str);
 		*str = temp;
 
 		/* this will do -1 in the future array of actions in main.c */
