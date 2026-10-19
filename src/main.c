@@ -18,7 +18,7 @@ int main(int argc, const char *argv[])
 	cipher_type prev_cipher_type = undefined;
 	input_types action = MENU_INVALID;
 	int8_t depth = -1;
-	cipher_type *hist = smalloc(sizeof(cipher_type) * NUM_DEPTH_INCR);
+	cipher_type *hist = smalloc(sizeof(cipher_type) * (1 + NUM_DEPTH_INCR));
 	int8_t elements_alloc = NUM_DEPTH_INCR;	/* track the number of elements allocated */
 	/* hist is used for the undo history
 	 * example: 
@@ -104,9 +104,16 @@ int main(int argc, const char *argv[])
 
 	do 
 	{
-		cipher_type previous_cipher = undefined;
-		if (depth >= 0)
+		cipher_type previous_cipher = depth >= 0 ? hist[depth] : undefined;
+		if (depth > 0)
+		{
 			previous_cipher = hist[depth];
+			if (previous_cipher == undefined)
+			{
+				fprintf(stderr, "undef");
+				exit(1);
+			}
+		}
 
 		prev_cipher_type = menu(&str, 1 + strlen(str), &action, previous_cipher);
 
