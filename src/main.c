@@ -104,8 +104,15 @@ int main(int argc, const char *argv[])
 
 	do 
 	{
-		if ()
-		prev_cipher_type = menu(&str, strlen(str), &action, );
+		if (depth < 0)
+		{
+			prev_cipher_type = menu(&str, 1 + strlen(str), &action, undefined);
+		}
+		else
+		{
+			prev_cipher_type = menu(&str, 1 + strlen(str), &action, hist[depth]);
+		}
+
 
 		if (action == MENU_UNDO)
 		{

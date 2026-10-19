@@ -26,6 +26,7 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 	input_types local_action = MENU_INVALID;
 
 	/* this is a default setting for the menu and it will never change */
+	/* TODO create a new config.c file for cipher types */
 	cipher_type types[INIT_MENU_ITEMS] = 
 	{
 		ROT_1,
@@ -51,6 +52,7 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 	{
 		display:
 		DISPLAY_MENU();
+		printf("DEBUG: %d\n\n", debug);
 		local_action = MENU_INVALID;
 		input = getinput(&local_action);
 		if (local_action == MENU_INVALID)
@@ -103,9 +105,8 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 	}
 	else if (local_action == MENU_UNDO)
 	{
-		to_cipher(&temp, *str, &length, *prev_cipher_type);
-		temp[length] = '\0';
-
+		to_cipher(&temp, *str, &length, prev_cipher_type);
+		printf("%s\n", temp);
 		strip_newline(temp, length);
 
 		*str = temp;
