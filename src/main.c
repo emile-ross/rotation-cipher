@@ -92,10 +92,15 @@ int main(int argc, const char *argv[])
 	do 
 	{
 		cipher_type ret = undefined;
+		/* prevent undoing twice in a row */
+		if (action == MENU_UNDO)
+			prev_cipher_type = undefined;
+
 		ret = menu(&str, 1 + strlen(str), &action, prev_cipher_type);
 		prev_cipher_type = ret;
 	}
 	while (prev_cipher_type != undefined);
+
 
 	return 0;
 }
