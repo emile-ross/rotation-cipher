@@ -16,7 +16,7 @@
 		free(menu_items[i].plain_text); \
 	free(menu_items);
 
-cipher_type menu(char **str, size_t length, input_types *action, cipher_type *prev_cipher_type)
+cipher_type menu(char **str, size_t length, input_types *action, cipher_type prev_cipher_type)
 {
 	cipher_type ret = undefined;
 	uint32_t i = 0;

@@ -17,6 +17,8 @@ int main(int argc, const char *argv[])
 	uint16_t temp_index = 0;
 	cipher_type prev_cipher_type = undefined;
 	input_types action = MENU_INVALID;
+	int8_t depth = -1;
+	cipher_type *hist = smalloc(sizeof(cipher_type) * NUM_DEPTH_INCR);
 	/* TODO declare new array of actions 
 	 * this array will be used for the undo history
 	 * example: 
@@ -26,8 +28,7 @@ int main(int argc, const char *argv[])
 	 * hist[2] undefined
 	 * but if he undos rot13 we go back to
 	 * hist[0] base64
-	 * hist[1] undefined
-	 */
+	 * hist[1] undefined */
 
 	argument_type *args = smalloc(sizeof(argument_type) * (unsigned)argc);
 	args[0] = file_executed;
@@ -103,13 +104,21 @@ int main(int argc, const char *argv[])
 
 	do 
 	{
-		prev_cipher_type = menu(&str, strlen(str), &action, &prev_cipher_type);
+		if ()
+		prev_cipher_type = menu(&str, strlen(str), &action, );
 
 		if (action == MENU_UNDO)
 		{
 			printf("new string: %s\n", str);
 			block();
+			depth--;
 		}
+		else if (action == MENU_ENTRY)
+		{
+			depth++;
+		}
+
+		hist[depth] = prev_cipher_type;
 	}
 	while (prev_cipher_type != undefined);
 	if (prev_cipher_type == undefined)
@@ -128,7 +137,6 @@ int main(int argc, const char *argv[])
 	}
 
 	printf("%s\n", str);
-
 	free(str);
 
 	return 0;
