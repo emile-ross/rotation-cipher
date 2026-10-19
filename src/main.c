@@ -116,8 +116,16 @@ int main(int argc, const char *argv[])
 		}
 
 		prev_cipher_type = menu(&str, 1 + strlen(str), &action, previous_cipher);
+		if (action == MENU_ENTRY)
+		{
+			if (depth + 1 >= elements_alloc)
+			{
+				/* TODO fix overflow here */
+			}
 
-
+			hist[++depth] = prev_cipher_type;
+			depth++;
+		}
 		if (action == MENU_UNDO)
 		{
 			/* continues anyway because why not */
@@ -129,14 +137,17 @@ int main(int argc, const char *argv[])
 			{
 				fprintf(stderr, "Warning: depth is too high\n");
 			}
-			depth--;
 		}
 		else if (action == MENU_ENTRY)
 		{
-			depth++;
+			hist[depth] = prev_cipher_type;
+			if (hist[depth] == undefined)
+			{
+				printf("writting undefined\n");
+				block();
+			}
 		}
 
-		hist[depth] = prev_cipher_type;
 	}
 	while (prev_cipher_type != undefined);
 	if (prev_cipher_type == undefined)
