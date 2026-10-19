@@ -6,6 +6,7 @@
 /* is replaced everywhere at compile time */
 #define INIT_MENU_ITEMS (6)
 
+
 #define DISPLAY_MENU() \
 	printf("\033[2J\033[H"); /* clear */ \
 	printf("Converting %s\n", *str); \
@@ -15,6 +16,7 @@
 	for (i = 0; i < num_items; i++) \
 		free(menu_items[i].plain_text); \
 	free(menu_items);
+
 
 cipher_type menu(char **str, size_t length, input_types *action, cipher_type prev_cipher_type)
 {
@@ -61,8 +63,15 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 			break;
 		else if (local_action == MENU_UNDO)
 		{
-			if (local_action == MENU_UNDO)
+			if (prev_cipher_type != undefined)
+			{
 				break;
+			}
+			else
+			{
+				fprintf(stderr, "Cannot undo further\n");
+				block();
+			}
 		}
 	}
 	while ((input < 0 || input > (signed)num_items));

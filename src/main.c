@@ -104,14 +104,11 @@ int main(int argc, const char *argv[])
 
 	do 
 	{
-		if (depth < 0)
-		{
-			prev_cipher_type = menu(&str, 1 + strlen(str), &action, undefined);
-		}
-		else
-		{
-			prev_cipher_type = menu(&str, 1 + strlen(str), &action, hist[depth]);
-		}
+		cipher_type previous_cipher = undefined;
+		if (depth >= 0)
+			previous_cipher = hist[depth];
+
+		prev_cipher_type = menu(&str, 1 + strlen(str), &action, previous_cipher);
 
 
 		if (action == MENU_UNDO)
@@ -132,7 +129,6 @@ int main(int argc, const char *argv[])
 			depth++;
 		}
 
-		printf("depth: %d\n", depth);
 		hist[depth] = prev_cipher_type;
 	}
 	while (prev_cipher_type != undefined);
