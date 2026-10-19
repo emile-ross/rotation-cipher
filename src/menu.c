@@ -52,7 +52,6 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 	{
 		display:
 		DISPLAY_MENU();
-		printf("DEBUG: %d\n\n", debug);
 		local_action = MENU_INVALID;
 		input = getinput(&local_action);
 		if (local_action == MENU_INVALID)
@@ -60,7 +59,7 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 
 		if (local_action == MENU_EXIT)
 			break;
-		if (prev_cipher_type != undefined)
+		else if (local_action == MENU_UNDO)
 		{
 			if (local_action == MENU_UNDO)
 				break;
