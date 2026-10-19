@@ -58,9 +58,11 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 
 		if (local_action == MENU_EXIT)
 			break;
-		/* if (*prev_cipher_type != undefined) */
-		if (local_action == MENU_UNDO)
-			break;
+		if (prev_cipher_type != undefined)
+		{
+			if (local_action == MENU_UNDO)
+				break;
+		}
 	}
 	while ((input < 0 || input > (signed)num_items));
 

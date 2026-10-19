@@ -18,7 +18,7 @@ void to_cipher(char **dst, char *src, size_t *length, cipher_type cipher);
 	unsigned char * base64_decode(const unsigned char *src, size_t len, size_t *out_len);
 
 /* menu.c */
-	cipher_type menu(char **str, size_t length, input_types *action, cipher_type *prev_cipher_type);
+	cipher_type menu(char **str, size_t length, input_types *action, cipher_type prev_cipher_type);
 	void display_menu(struct cipher_menu_item *menu_items, cipher_type *types);
 	void strip_newline(char *string, size_t length);
 
