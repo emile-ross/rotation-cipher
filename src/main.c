@@ -89,29 +89,13 @@ int main(int argc, const char *argv[])
 	}
 	free(args);
 
-
 	do 
 	{
-		prev_cipher_type = menu(&str, 1 + strlen(str), &action, previous_cipher);
+		cipher_type ret = undefined;
+		ret = menu(&str, 1 + strlen(str), &action, prev_cipher_type);
+		prev_cipher_type = ret;
 	}
 	while (prev_cipher_type != undefined);
-	if (prev_cipher_type == undefined)
-	{
-		if (str == NULL)
-		{
-			printf("Exiting\n");
-			return 0;
-		}
-		else
-		{
-			fprintf(stderr, "An error occured\n");
-			free(str);
-			return 1;
-		}
-	}
-
-	printf("%s\n", str);
-	free(str);
 
 	return 0;
 }
