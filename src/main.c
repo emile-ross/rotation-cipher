@@ -17,18 +17,6 @@ int main(int argc, const char *argv[])
 	uint16_t temp_index = 0;
 	cipher_type prev_cipher_type = undefined;
 	input_types action = MENU_INVALID;
-	int8_t depth = -1;
-	cipher_type *hist = smalloc(sizeof(cipher_type) * (1 + NUM_DEPTH_INCR));
-	int8_t elements_alloc = NUM_DEPTH_INCR;	/* track the number of elements allocated */
-	/* hist is used for the undo history
-	 * example: 
-	 * if the user enters base64 & then rot13
-	 * hist[0] base64
-	 * hist[1] rot13
-	 * hist[2] undefined
-	 * but if he undos rot13 we go back to
-	 * hist[0] base64
-	 * hist[1] undefined */
 
 	argument_type *args = smalloc(sizeof(argument_type) * (unsigned)argc);
 	args[0] = file_executed;
@@ -104,50 +92,7 @@ int main(int argc, const char *argv[])
 
 	do 
 	{
-		cipher_type previous_cipher = depth >= 0 ? hist[depth] : undefined;
-		if (depth > 0)
-		{
-			previous_cipher = hist[depth];
-			if (previous_cipher == undefined)
-			{
-				fprintf(stderr, "undef");
-				exit(1);
-			}
-		}
-
 		prev_cipher_type = menu(&str, 1 + strlen(str), &action, previous_cipher);
-		if (action == MENU_ENTRY)
-		{
-			if (depth + 1 >= elements_alloc)
-			{
-				/* TODO fix overflow here */
-			}
-
-			hist[++depth] = prev_cipher_type;
-			depth++;
-		}
-		if (action == MENU_UNDO)
-		{
-			/* continues anyway because why not */
-			if (depth < 0)
-			{
-				fprintf(stderr, "Invalid undo leads to negative index (depth is 0)\n");
-			}
-			else if (depth >= elements_alloc - 1)
-			{
-				fprintf(stderr, "Warning: depth is too high\n");
-			}
-		}
-		else if (action == MENU_ENTRY)
-		{
-			hist[depth] = prev_cipher_type;
-			if (hist[depth] == undefined)
-			{
-				printf("writting undefined\n");
-				block();
-			}
-		}
-
 	}
 	while (prev_cipher_type != undefined);
 	if (prev_cipher_type == undefined)
