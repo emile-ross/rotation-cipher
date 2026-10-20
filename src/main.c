@@ -24,6 +24,7 @@ int main(int argc, const char *argv[])
 	if (argc <= 1)
 	{
 		fprintf(stderr, "Insufficient arguments | Arguments insuffisants\n");
+		free(args);	/* free on exit */
 		return 1;
 	}
 

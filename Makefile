@@ -26,3 +26,9 @@ clean:
 
 test:
 	valgrind --leak-check=full --log-file=$(time)-valgrind.log --show-leak-kinds=all -s ./rot-solver 'SGVsbG8gd29ybGQ='
+
+.PHONY: install
+install:
+	./root_check.sh
+	# install the package
+	cp $(BIN_NAME) /usr/bin/$(BIN_NAME)

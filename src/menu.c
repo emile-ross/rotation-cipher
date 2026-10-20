@@ -38,6 +38,8 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 	{
 		menu_items[i].string_length = length;
 		decipher(&(menu_items[i].plain_text), *str, &(menu_items[i].string_length), types[i]);
+		/* each decipher call will allocate space for the decoded string
+		 * and store the pointer in the menu_items array at index 'i' */
 		if (menu_items[i].plain_text != NULL)
 		{
 			num_items++;
@@ -71,6 +73,7 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 		}
 	}
 	while ((input < 0 || input > (signed)num_items));
+	/* TODO fix this possibly out of bounds access if the item  */
 
 	if (local_action != MENU_UNDO && local_action != MENU_EXIT)
 	{
@@ -123,6 +126,11 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 		ret = previous_cipher;
 	}
 
+	for (i = 0; types[i] != undefined; i++)
+	{
+		if (menu_items[i].plain_text != NULL)
+			free(menu_items[i].plain_text);
+	}
 	free(menu_items);
 	return ret;
 }
