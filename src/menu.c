@@ -74,6 +74,10 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 
 	if (local_action != MENU_UNDO && local_action != MENU_EXIT)
 	{
+		if (str != NULL)
+		{
+			free(*str);
+		}
 		*str = NULL;
 	}
 

@@ -98,7 +98,10 @@ int main(int argc, const char *argv[])
 	}
 	while (prev_cipher_type != undefined);
 
-
+	if (str != NULL)
+	{
+		free(str);
+	}
 	return 0;
 }
 
