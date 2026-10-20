@@ -74,7 +74,6 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 
 	if (local_action != MENU_UNDO && local_action != MENU_EXIT)
 	{
-		free(*str);
 		*str = NULL;
 	}
 
@@ -104,30 +103,29 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 			if ((signed)i == index_user_picked && index_user_picked != -1)
 				continue;
 
-			free(menu_items[i].plain_text);
 		}
 	}
 	else if (local_action == MENU_UNDO)
 	{
 		to_cipher(&temp, *str, &length, prev_cipher_type);
+		/* to cipher returns a region of memory allocated on the heap */
 		printf("%s\n", temp);
 		strip_newline(temp, length);
 
 		*str = temp;
 
 		/* this will do -1 in the future array of actions in main.c */
-		free(menu_items);
+		/* free locally allocated struct */
 		return previous_cipher;
 	}
 	else if (local_action == MENU_EXIT)
 	{
-		FREE_ALL();
-		if (temp != NULL)
-			free(temp);
+		/* free everything in here */
 		return ret;
 	}
 
-	free(menu_items);
+	/* free everything (although 
+	 * idk how you get here) */
 	return ret;
 }
 

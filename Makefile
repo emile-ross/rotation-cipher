@@ -3,11 +3,12 @@ CC = cc
 BIN_NAME := rot-solver
 
 CFLAGS := -O2 -Wpedantic -Wswitch-enum -Wall -Wextra -Wconversion -g
-
 src_files = arguments base64 compare encoding file_reading main memory_safety menu safe_copy take_input
 
 SRC_PATH := $(addprefix src/, $(src_files))
 SRCS := $(addsuffix .c, $(SRC_PATH))
+
+date --iso-8601='seconds'
 
 .PHONY: all
 all: 
@@ -24,4 +25,4 @@ clean:
 	rm $(BIN_NAME) *.o
 
 test:
-	valgrind --leak-check=full --log-file=2valgrind.log --show-leak-kinds=all -s ./rot-solver 'SGVsbG8gd29ybGQ='
+	valgrind --leak-check=full --log-file=valgrind.log --show-leak-kinds=all -s ./rot-solver 'SGVsbG8gd29ybGQ='
