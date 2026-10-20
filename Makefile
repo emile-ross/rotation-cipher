@@ -22,3 +22,6 @@ warn:
 .PHONY: clean
 clean:
 	rm $(BIN_NAME) *.o
+
+test:
+	valgrind --leak-check=full --log-file=2valgrind.log --show-leak-kinds=all -s ./rot-solver 'SGVsbG8gd29ybGQ='

@@ -6,17 +6,10 @@
 /* is replaced everywhere at compile time */
 #define INIT_MENU_ITEMS (6)
 
-
 #define DISPLAY_MENU() \
 	printf("\033[2J\033[H"); /* clear */ \
 	printf("Converting %s\n", *str); \
 	display_menu(menu_items, types);
-
-#define FREE_ALL() \
-	for (i = 0; types[i] != undefined; i++) { \
-		free(menu_items[i].plain_text); \
-		menu_items[i].plain_text = NULL; \
-	} free(menu_items); 
 
 
 cipher_type menu(char **str, size_t length, input_types *action, cipher_type prev_cipher_type)
