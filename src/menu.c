@@ -1,10 +1,8 @@
-#include "header.h"
+#include "config.h"
 
 #include <stdlib.h>
 #include <string.h>
 
-/* is replaced everywhere at compile time */
-#define INIT_MENU_ITEMS (6)
 
 #define DISPLAY_MENU() \
 	printf("\033[2J\033[H"); /* clear */ \
@@ -23,14 +21,6 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 
 	/* this is a default setting for the menu and it will never change */
 	/* TODO create a new config.c file for cipher types */
-	cipher_type types[INIT_MENU_ITEMS] = 
-	{
-		ROT_1,
-		ROT_13,
-		ROT_48,
-		BASE_64,
-		undefined
-	};
 
 	uint32_t num_items = 0;
 	struct cipher_menu_item *menu_items = (struct cipher_menu_item*)scalloc(INIT_MENU_ITEMS, sizeof(cipher_menu_item));
@@ -75,9 +65,18 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 	while ((input < 0 || input > (signed)num_items));
 	/* TODO fix this possibly out of bounds access if the item  */
 
+	/* if (action != MENU_UNDO) 
+	 * if the user chooses to undo after an undo, we 
+	 * need to keep the original str string because 
+	 * we're going to encode it back into it's original form
+	 * (This isn't currently supported, hence why 
+	 * the condition is commented out) */
+	if (prev_cipher_type == undefined && *str != NULL)
+		free(*str);
+
 	if (local_action != MENU_UNDO && local_action != MENU_EXIT)
 	{
-		if (str != NULL)
+		if (*str != NULL)
 		{
 			free(*str);
 		}
@@ -116,7 +115,6 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 	{
 		to_cipher(&temp, *str, &length, prev_cipher_type);
 		/* to cipher returns a region of memory allocated on the heap */
-		printf("%s\n", temp);
 		strip_newline(temp, length);
 
 		*str = temp;

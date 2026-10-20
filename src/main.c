@@ -83,9 +83,9 @@ int main(int argc, const char *argv[])
 	       temp_length = strlen(argv[temp_index]) + 1;
 	       str = smalloc(temp_length);
 	       strncpy(str, argv[temp_index], temp_length);
-	       str[temp_length -1] = '\0';
+	       str[temp_length - 1] = '\0';
 	}
-	free(args);	/* not used anymore */
+	free(args);
 
 	do 
 	{
