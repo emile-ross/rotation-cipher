@@ -120,16 +120,10 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 
 		/* this will do -1 in the future array of actions in main.c */
 		/* free locally allocated struct */
-		return previous_cipher;
-	}
-	else if (local_action == MENU_EXIT)
-	{
-		/* free everything in here */
-		return ret;
+		ret = previous_cipher;
 	}
 
-	/* free everything (although 
-	 * idk how you get here) */
+	free(menu_items);
 	return ret;
 }
 
