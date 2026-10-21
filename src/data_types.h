@@ -39,6 +39,7 @@ typedef enum
 	MENU_INVALID = 0,
 	MENU_EMPTY,
 	MENU_EXIT,
+	MENU_COPY,
 	MENU_UNDO,
 	MENU_ENTRY
 } input_types;

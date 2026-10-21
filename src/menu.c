@@ -43,6 +43,18 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 		DISPLAY_MENU();
 		local_action = MENU_INVALID;
 		input = getinput(&local_action);
+
+		/* handle copy before anything else in order to stay in the menu  */
+		if (local_action == MENU_COPY)
+		{
+			printf("Copying to clipboard\n");
+			printf("%s\n", *str);
+
+			block();
+			/* copy(*str); */
+			goto display;
+		}
+
 		if (local_action == MENU_INVALID)
 			goto display;
 
@@ -73,7 +85,10 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 	 * (This isn't currently supported, hence why 
 	 * the condition is commented out) */
 	if (prev_cipher_type == undefined && *str != NULL)
+	{
 		free(*str);
+		*str = NULL;
+	}
 
 	if (local_action != MENU_UNDO && local_action != MENU_EXIT)
 	{

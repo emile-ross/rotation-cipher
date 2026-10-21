@@ -22,7 +22,7 @@ warn:
 
 .PHONY: clean
 clean:
-	rm $(BIN_NAME) *.o
+	rm *.o $(BIN_NAME)
 
 test:
 	valgrind --leak-check=full --log-file=$(time)-valgrind.log --show-leak-kinds=all -s ./rot-solver 'SGVsbG8gd29ybGQ='
