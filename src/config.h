@@ -1,3 +1,6 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
 #include "header.h"
 
 static const Bool xorg = True;
@@ -12,3 +15,5 @@ static cipher_type types[INIT_MENU_ITEMS] =
 	BASE_64,
 	undefined
 };
+
+#endif /* CONFIG_H */

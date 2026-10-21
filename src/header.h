@@ -1,3 +1,6 @@
+#ifndef HEADER_H
+#define HEADER_H
+
 #define _POSIX_C_SOURCE 200809L
 
 #include <stdio.h>
@@ -47,3 +50,5 @@ void to_cipher(char **dst, char *src, size_t *length, cipher_type cipher);
 
 /* in main.c */
 	void display_help(void);
+
+#endif /* HEADER.H */
