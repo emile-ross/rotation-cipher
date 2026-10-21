@@ -60,9 +60,6 @@ int32_t getinput(input_types *action)
 			case 'y':
 			case 'C':
 			case 'c':
-				fprintf(stderr, "Copying to clipboard is currently unsupported\n");
-				fprintf(stderr, "There are some plans for supporting it in the future however\n");
-				block();
 				(*action) = MENU_COPY;
 				break;
 

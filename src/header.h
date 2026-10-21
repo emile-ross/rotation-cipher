@@ -15,6 +15,7 @@ void *smalloc(size_t size);
 void rotate(char **dst, char *src, size_t len, char *init_char, uint8_t charset, int8_t cipher);
 void decipher(char **dst, char *src, size_t *length, cipher_type cipher);
 void to_cipher(char **dst, char *src, size_t *length, cipher_type cipher);
+Bool copy(const char *input);
 
 /* base64.c */
 	unsigned char * base64_encode(const unsigned char *src, size_t len, size_t *out_len);

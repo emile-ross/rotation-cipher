@@ -47,11 +47,15 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 		/* handle copy before anything else in order to stay in the menu  */
 		if (local_action == MENU_COPY)
 		{
+			/* TODO Add support for multiple languages */
 			printf("Copying to clipboard\n");
 			printf("%s\n", *str);
 
 			block();
-			/* copy(*str); */
+			copy(*str);
+			/* TODO add option to exit on copy 
+			 * if that option is true we can set local_action to MENU_EXIT & break
+			 * out of this while loop */
 			goto display;
 		}
 
@@ -187,4 +191,31 @@ void strip_newline(char *string, size_t length)
 			break;
 		}
 	}
+}
+
+Bool copy(const char *input)
+{
+	const char *command_template = "echo -en \"%s\" | %s";
+	char *clipboard = NULL;
+	uint32_t size = 0;
+
+	if (xorg)
+	{
+		char *xclip = "xclip";
+		clipboard = xclip;
+	}
+	else if (wayland)
+	{
+		char *wlcopy = "wl-copy";
+		clipboard = wlcopy;
+	}
+
+	size = 1 + snprintf(NULL, 0, command_template, input, clipboard);
+	char *cmd_buf = malloc(size);
+
+	snprintf(cmd_buf, size, command_template, input, clipboard);
+
+	printf("%s\n", cmd_buf);
+	free(cmd_buf);
+	return True;
 }
