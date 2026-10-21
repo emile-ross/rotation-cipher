@@ -51,8 +51,8 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 			printf("Copying to clipboard\n");
 			printf("%s\n", *str);
 
-			block();
 			copy(*str);
+			block();
 			/* TODO add option to exit on copy 
 			 * if that option is true we can set local_action to MENU_EXIT & break
 			 * out of this while loop */
@@ -198,6 +198,7 @@ Bool copy(const char *input)
 	const char *command_template = "echo -en \"%s\" | %s";
 	char *clipboard = NULL;
 	uint32_t size = 0;
+	char *cmd_buf = NULL;
 
 	if (xorg)
 	{
@@ -210,12 +211,13 @@ Bool copy(const char *input)
 		clipboard = wlcopy;
 	}
 
-	size = 1 + snprintf(NULL, 0, command_template, input, clipboard);
-	char *cmd_buf = malloc(size);
+	size = 1 + (unsigned)snprintf(NULL, 0, command_template, input, clipboard);
+	cmd_buf = smalloc(size);
 
 	snprintf(cmd_buf, size, command_template, input, clipboard);
 
-	printf("%s\n", cmd_buf);
+	system(cmd_buf);
 	free(cmd_buf);
+
 	return True;
 }
