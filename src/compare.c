@@ -22,7 +22,6 @@ Bool scmp(const char *s1, const char *s2)
 
 Bool cmp(const char *arg, const char *s1, const char *s2)
 {
-
 	if (scmp(arg, s1))
 	{
 		return True;
