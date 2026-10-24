@@ -11,9 +11,9 @@ int main(int argc, const char *argv[])
 {
 	uint16_t i = 0;
 	char *str = NULL;	/* gets edited by the menu() fn & main() */
-	char *file_content = NULL;
 	uint16_t unused_arg_count = 0;
 	size_t temp_length = 0;
+	char *file_path = NULL;
 	uint16_t temp_index = 0;
 	cipher_type prev_cipher_type = undefined;
 	input_types action = MENU_INVALID;
@@ -25,7 +25,7 @@ int main(int argc, const char *argv[])
 	{
 		fprintf(stderr, "Insufficient arguments | Arguments insuffisants\n");
 		free(args);	/* free on exit */
-		return 1;
+		return -5;
 	}
 
 	for (i = 1; i < argc; i++)
@@ -38,18 +38,12 @@ int main(int argc, const char *argv[])
 				file_content = get_file_content(argv[i + 1]);
 
 				args[i + 1] = used_argument;
-
-				if (file_content == NULL)
-				{
-					fprintf(stderr, "get_file_content() returned NULL\n");
-					return 1;
-				}
-				printf("%s\n", file_content);
 				return 0;
 			}
 			else
 			{
-				fprintf(stderr, "missing arguments for file reading\n");
+				args_expected(argv[i]);
+				return -2;
 			}
 		}
 		else if (cmp(argv[i], "-c", "--cipher"))
@@ -57,11 +51,12 @@ int main(int argc, const char *argv[])
 			args[i] = used_flag;
 			if (i + 1 < argc)
 			{
-
+				/* TODO determine the type of cipher */
 			}
 			else
 			{
-				fprintf(stderr, "arguments expected following the \'%s\' flag\n", argv[i]);
+				args_expected(argv[i]);
+				return -1;
 			}
 		}
 		else if (cmp(argv[i], "-s", "--string"))
@@ -74,7 +69,8 @@ int main(int argc, const char *argv[])
 			}
 			else
 			{
-				fprintf(stderr, "arguments expected following the \'%s\' flag\n", argv[i]);
+				args_expected(argv[i]);
+				return -3;
 			}
 		}
 		else if (cmp(argv[i], "-H", "--help"))
@@ -124,6 +120,8 @@ void display_help(void)
 			"Usage: rot-solver [OPTION]... DIRECTORY...\n"
 			"Create the DIRECTORY(ies), if they do not already exist.\n"
 			"Mandatory arguments to long options are mandatory for short options too.\n"
+			"  -c, --cipher\n"
+			"         specify the type of cipher/encoding to use\n"
 			"  -s, --string\n"
 			"         specify the string to decode after the flag\n"
 			"  -f, --file\n"
