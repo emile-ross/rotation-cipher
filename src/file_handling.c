@@ -1,6 +1,7 @@
 #include "header.h"
 
 #include <string.h>
+#include <stdlib.h>
 
 /* read from file and return a pointer to the allocated memory */
 char *file_handling(const char *filename, const char *dst_filename, cipher_type *cipher)
@@ -12,14 +13,15 @@ char *file_handling(const char *filename, const char *dst_filename, cipher_type 
 
 	char *input_buffer = NULL;	/* used as a temporary buffer for the line */
 	char *s_dst_filename = NULL;
-	size_t dst_filename_length = 0;
-	const char *str = "temp-";
+	size_t dst_len = 0;
+	const char *filename_template = "temp-%s";
 
 	if (scmp(dst_filename, filename))
 	{
-		dst_filename_length = strlen(dst_filename);
-		s_dst_filename = smalloc(dst_filename_length + 1 + 5);
-		snprintf(s_dst_filename, );
+		dst_len = (unsigned)snprintf(NULL, 0, filename_template, dst_filename);
+		s_dst_filename = smalloc(dst_len + 1);
+		snprintf(s_dst_filename, dst_len + 1, filename_template, dst_filename);
+		dst_fp = fopen(s_dst_filename, "w");
 	}
 
 	/* open file in reading 
@@ -57,6 +59,12 @@ char *file_handling(const char *filename, const char *dst_filename, cipher_type 
 		{
 			break;
 		}
+	}
+
+	if (s_dst_filename != NULL)
+	{
+		free(s_dst_filename);
+		fclose(dst_fp);
 	}
 	return NULL;
 }
