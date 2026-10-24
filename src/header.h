@@ -34,8 +34,8 @@ Bool copy(const char *input);
 	void *scalloc(size_t n, size_t size);
 	void *srealloc(void *old_ptr, size_t size);
 
-/* file_reading.c */
-	char *get_file_content(const char *filename);
+/* file_handling.c */
+	char *file_handling(const char *filename, const char *dst_filename);
 
 /* arguments.c */
 	uint16_t argtype_to_index(const int32_t num_args, const argument_type *args, const argument_type type);

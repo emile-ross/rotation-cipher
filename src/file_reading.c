@@ -3,13 +3,17 @@
 #include <string.h>
 
 /* read from file and return a pointer to the allocated memory */
-char *file_handling(const char *filename, const char *dst_filename)
+char *file_handling(const char *filename, const char *dst_filename, cipher_type cipher)
 {
 	const size_t LINE_BUFFER_SIZE = 512; 
 
 	FILE *fp = NULL;
 	char *input_buffer = NULL;
-	size_t input_buffer_size = 512; 
+	char *s_dst_filename = NULL;
+	if (scmp(dst_filename, filename))
+	{
+
+	}
 
 	/* open file in reading 
 	 * file will never be written to directly 
@@ -23,16 +27,16 @@ char *file_handling(const char *filename, const char *dst_filename)
 				filename, filename);
 		return NULL;
 	}
-	input_buffer = scalloc(1, input_buffer_size);
 
 	while (1)
 	{
+		size_t length = LINE_BUFFER_SIZE;
 		char *dst = NULL;
 
-		if (fgets(input_buffer, (int32_t)line_buffer_size, fp) != NULL)
+		if (fgets(input_buffer, (int32_t)LINE_BUFFER_SIZE, fp) != NULL)
 		{
 			/* decipher and then write to new file (if needed) */
-			decipher(&dst, input_buffer, size_t *length, cipher_type cipher);
+			decipher(&dst, input_buffer, &length, cipher_type cipher);
 
 		}
 		else

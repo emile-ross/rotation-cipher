@@ -18,7 +18,7 @@ int main(int argc, const char *argv[])
 	cipher_type prev_cipher_type = undefined;
 	input_types action = MENU_INVALID;
 
-	bool file_cipher_source = false;
+	Bool file_cipher_source = False;
 
 	argument_type *args = smalloc(sizeof(argument_type) * (unsigned)argc);
 	args[0] = file_executed;
@@ -44,7 +44,7 @@ int main(int argc, const char *argv[])
 					return 1;
 				}
 
-				file_cipher_source = true;
+				file_cipher_source = True;
 				args[i + 1] = used_argument;
 			}
 			else
