@@ -18,6 +18,8 @@ int main(int argc, const char *argv[])
 	cipher_type prev_cipher_type = undefined;
 	input_types action = MENU_INVALID;
 
+	bool file_cipher_source = false;
+
 	argument_type *args = smalloc(sizeof(argument_type) * (unsigned)argc);
 	args[0] = file_executed;
 
@@ -35,10 +37,15 @@ int main(int argc, const char *argv[])
 			args[i] = used_flag;
 			if (i + 1 < argc)
 			{
-				file_content = get_file_content(argv[i + 1]);
+				file_path = strdup(argv[i + 1]);
+				if (file_path == NULL)
+				{
+					fprintf(stderr, "error: strdup() returned NULL (failed to allocate memory)\n");
+					return 1;
+				}
 
+				file_cipher_source = true;
 				args[i + 1] = used_argument;
-				return 0;
 			}
 			else
 			{
@@ -82,6 +89,13 @@ int main(int argc, const char *argv[])
 			args[i] = unused_argument;
 			unused_arg_count++;
 		}
+	}
+
+	if (file_cipher_source)
+	{
+		/* TODO: 
+		 * write to file (optional)
+		 */
 	}
 
 	/* get str from the unused argument passed into the program */
