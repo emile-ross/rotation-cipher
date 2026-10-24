@@ -35,7 +35,7 @@ Bool copy(const char *input);
 	void *srealloc(void *old_ptr, size_t size);
 
 /* file_handling.c */
-	char *file_handling(const char *filename, const char *dst_filename);
+	char *file_handling(const char *filename, const char *dst_filename, cipher_type *cipher);
 
 /* arguments.c */
 	uint16_t argtype_to_index(const int32_t num_args, const argument_type *args, const argument_type type);

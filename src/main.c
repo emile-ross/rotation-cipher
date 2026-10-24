@@ -21,7 +21,7 @@ int main(int argc, const char *argv[])
 	Bool file_cipher_source = False;
 
 	argument_type *args = smalloc(sizeof(argument_type) * (unsigned)argc);
-	args[0] = file_executed;
+	args[0] = file_executed;	/* the command executing this */
 
 	if (argc <= 1)
 	{

@@ -3,16 +3,18 @@
 #include <string.h>
 
 /* read from file and return a pointer to the allocated memory */
-char *file_handling(const char *filename, const char *dst_filename, cipher_type cipher)
+char *file_handling(const char *filename, const char *dst_filename, cipher_type *cipher)
 {
 	const size_t LINE_BUFFER_SIZE = 512; 
 
 	FILE *fp = NULL;
 	char *input_buffer = NULL;
 	char *s_dst_filename = NULL;
+
+	size_t dst_filename_length = 0;
 	if (scmp(dst_filename, filename))
 	{
-
+		s_dst_filename = smalloc();
 	}
 
 	/* open file in reading 
@@ -28,6 +30,7 @@ char *file_handling(const char *filename, const char *dst_filename, cipher_type 
 		return NULL;
 	}
 
+	input_buffer = smalloc(LINE_BUFFER_SIZE + 1);
 	while (1)
 	{
 		size_t length = LINE_BUFFER_SIZE;
@@ -36,8 +39,7 @@ char *file_handling(const char *filename, const char *dst_filename, cipher_type 
 		if (fgets(input_buffer, (int32_t)LINE_BUFFER_SIZE, fp) != NULL)
 		{
 			/* decipher and then write to new file (if needed) */
-			decipher(&dst, input_buffer, &length, cipher_type cipher);
-
+			decipher(&dst, input_buffer, &length, *cipher);
 		}
 		else
 		{
