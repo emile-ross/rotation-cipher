@@ -8,13 +8,18 @@ char *file_handling(const char *filename, const char *dst_filename, cipher_type 
 	const size_t LINE_BUFFER_SIZE = 512; 
 
 	FILE *fp = NULL;
-	char *input_buffer = NULL;
-	char *s_dst_filename = NULL;
+	FILE *dst_fp = NULL;
 
+	char *input_buffer = NULL;	/* used as a temporary buffer for the line */
+	char *s_dst_filename = NULL;
 	size_t dst_filename_length = 0;
+	const char *str = "temp-";
+
 	if (scmp(dst_filename, filename))
 	{
-		s_dst_filename = smalloc();
+		dst_filename_length = strlen(dst_filename);
+		s_dst_filename = smalloc(dst_filename_length + 1 + 5);
+		snprintf(s_dst_filename, );
 	}
 
 	/* open file in reading 
@@ -40,6 +45,13 @@ char *file_handling(const char *filename, const char *dst_filename, cipher_type 
 		{
 			/* decipher and then write to new file (if needed) */
 			decipher(&dst, input_buffer, &length, *cipher);
+			if (dst_filename != NULL)
+			{
+				/* TODO write to file */
+			}
+			else
+			{
+			}
 		}
 		else
 		{
