@@ -8,7 +8,6 @@ char *get_file_content(const char *filename)
 	FILE *fp = NULL;
 	char *input_buffer = NULL;
 	size_t input_buffer_size = 512; 
-	size_t buffer_size_increment = 512;
 	size_t increment = 0;
 
 	fp = fopen(filename, "r");

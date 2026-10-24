@@ -39,6 +39,7 @@ Bool copy(const char *input);
 
 /* arguments.c */
 	uint16_t argtype_to_index(const int32_t num_args, const argument_type *args, const argument_type type);
+	void args_expected(const char *cmd_flag);
 
 
 /* take_input.c */

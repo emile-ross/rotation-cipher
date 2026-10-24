@@ -52,6 +52,18 @@ int main(int argc, const char *argv[])
 				fprintf(stderr, "missing arguments for file reading\n");
 			}
 		}
+		else if (cmp(argv[i], "-c", "--cipher"))
+		{
+			args[i] = used_flag;
+			if (i + 1 < argc)
+			{
+
+			}
+			else
+			{
+				fprintf(stderr, "arguments expected following the \'%s\' flag\n", argv[i]);
+			}
+		}
 		else if (cmp(argv[i], "-s", "--string"))
 		{
 			args[i] = used_flag;
@@ -116,4 +128,10 @@ void display_help(void)
 			"         specify the string to decode after the flag\n"
 			"  -f, --file\n"
 			"         reads the ciphertext from a file\n");
+}
+
+void args_expected(const char *cmd_flag)
+{
+	fprintf(stderr, "Arguments expected following the \'%s\' flag\n", cmd_flag);
+	fprintf(stderr, "Expected: %s [argument]\n", cmd_flag);
 }
