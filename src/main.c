@@ -94,6 +94,8 @@ int main(int argc, const char *argv[])
 	if (file_cipher_source)
 	{
 		/* TODO: 
+		 * read from file
+		 * convert to text 
 		 * write to file (optional)
 		 */
 	}
