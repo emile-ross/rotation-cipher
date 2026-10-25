@@ -19,16 +19,26 @@ uint16_t argtype_to_index(const int32_t num_args, const argument_type *args, con
 
 cipher_type convert_to_cipher(const char *argument)
 {
-	
 	if (comp("64", "base-64") || 
 			comp("B64", "BASE64") ||
 			comp("b64", "base64") ||
 			comp("BASE_64", "BASE-64"))
-	/* loop on arguments
-	 *
-	 * match for each type
-	 *
-	 * return type */
+	{
+		return BASE_64;
+	}
+	else if (comp("ROT-13", "ROT_13") || comp("rot-13", "13"))
+	{
+		return ROT_13;
+	}
+	else if (comp("ROT-24", "ROT_24") || comp("rot-24", "24"))
+	{
+		return ROT_24;
+	}
+	else if (comp("ROT-1", "ROT_1") || comp("rot-1", "1"))
+	{
+		return ROT_1;
+	}
+	return undefined;
 }
 /* 
 {
