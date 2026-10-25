@@ -38,7 +38,7 @@ Bool copy(const char *input);
 	char *file_handling(const char *filename, const char *dst_filename, cipher_type *cipher);
 
 /* arguments.c */
-	cipher_type convert_to_cipher(char *arg);
+	cipher_type convert_to_cipher(const char *argument);
 	uint16_t argtype_to_index(const int32_t num_args, const argument_type *args, const argument_type type);
 	void args_expected(const char *cmd_flag);
 

@@ -49,17 +49,25 @@ int main(int argc, const char *argv[])
 	{
 		if (scmp(argv[i], "--src-file") || cmp(argv[i], "-f", "--file"))
 		{
+			/* allocates memory for the src_file_path */
 			next_arg(src_file_path);
 		}
 		else if (cmp(argv[i], "--dst-file", "--destination-file") || 
 				cmp(argv[i], "-d", "--destination"))
 		{
+			/* allocates memory for the dst_file_path */
 			next_arg(src_file_path);
 		}
-		else if (cmp(argv[i], "-c", "--cipher"))
+		else if (cmp(argv[i], "-c", "--cipher") || scmp(argv[i], "--cipher-type"))
 		{
 			next_arg(user_cipher_str);
 			user_cipher = convert_to_cipher(user_cipher_str);
+			free(user_cipher_str);
+			if (user_cipher == undefined)
+			{
+				free(args);
+				return -4;
+			}
 		}
 		else if (cmp(argv[i], "-s", "--string"))
 		{

@@ -1,7 +1,7 @@
 #include "header.h"
 
-#define comp(arg1, arg2) \
-	cmp(argument, arg1, arg2);
+#define comp(arga, argb) \
+	cmp(argument, arga, argb)
 
 uint16_t argtype_to_index(const int32_t num_args, const argument_type *args, const argument_type type)
 {
@@ -38,6 +38,10 @@ cipher_type convert_to_cipher(const char *argument)
 	{
 		return ROT_1;
 	}
+	fprintf(stderr, "Invalid cipher used\n");
+
+	printf("here are all valid cipher types: \n");
+	printf("BASE-64\nROT-1\nROT-13\nROT-24\nROT-48\n");
 	return undefined;
 }
 /* 
