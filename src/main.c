@@ -51,22 +51,15 @@ int main(int argc, const char *argv[])
 		{
 			next_arg(src_file_path);
 		}
-		else if (cmp(argv[i], "--dst-file", "--destination-file") || cmp(argv[i], "-d", "--destination"))
+		else if (cmp(argv[i], "--dst-file", "--destination-file") || 
+				cmp(argv[i], "-d", "--destination"))
 		{
 			next_arg(src_file_path);
 		}
 		else if (cmp(argv[i], "-c", "--cipher"))
 		{
-			args[i] = used_flag;
-			if (i + 1 < argc)
-			{
-				/* TODO determine the type of cipher */
-			}
-			else
-			{
-				args_expected(argv[i]);
-				return -1;
-			}
+			next_arg(user_cipher_str);
+			user_cipher = convert_to_cipher(user_cipher_str);
 		}
 		else if (cmp(argv[i], "-s", "--string"))
 		{
@@ -96,7 +89,7 @@ int main(int argc, const char *argv[])
 	/* if source file path is defined we parse the file */
 	if (src_file_path != NULL)
 	{
-		char *ret = file_handling(src_file_path, dst_file_path, cipher);
+		char *ret = file_handling(src_file_path, dst_file_path, &user_cipher);
 		if (ret == NULL)
 		{
 			fprintf(stderr, "file_handling() failed and returned NULL\n");
