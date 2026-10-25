@@ -22,6 +22,13 @@ char *file_handling(const char *filename, const char *dst_filename, cipher_type 
 		s_dst_filename = smalloc(dst_len + 1);
 		snprintf(s_dst_filename, dst_len + 1, filename_template, dst_filename);
 		dst_fp = fopen(s_dst_filename, "w");
+		if (dst_fp == NULL)
+		{
+			fprintf(stderr, "fopen() failed to \"%s\"\n", s_dst_filename);
+
+			free(s_dst_filename);
+			return NULL;
+		}
 	}
 
 	/* open file in reading 
@@ -34,6 +41,9 @@ char *file_handling(const char *filename, const char *dst_filename, cipher_type 
 	{
 		fprintf(stderr, "No such file \'%s\' | Aucun fichier nommé: \'%s\'\n", 
 				filename, filename);
+		if (s_dst_filename != NULL)
+			free(s_dst_filename);
+
 		return NULL;
 	}
 
@@ -47,12 +57,14 @@ char *file_handling(const char *filename, const char *dst_filename, cipher_type 
 		{
 			/* decipher and then write to new file (if needed) */
 			decipher(&dst, input_buffer, &length, *cipher);
+
 			if (dst_filename != NULL)
 			{
 				/* TODO write to file */
 			}
 			else
 			{
+				printf(input_buffer);
 			}
 		}
 		else
@@ -60,6 +72,8 @@ char *file_handling(const char *filename, const char *dst_filename, cipher_type 
 			break;
 		}
 	}
+
+	free(input_buffer);
 
 	if (s_dst_filename != NULL)
 	{

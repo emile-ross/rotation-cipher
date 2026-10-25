@@ -93,6 +93,8 @@ int main(int argc, const char *argv[])
 
 	if (file_cipher_source)
 	{
+		char *ret = file_handling(const char *filename, const char *dst_filename, cipher_type *cipher);
+
 		/* TODO: 
 		 * read from file
 		 * convert to text 
