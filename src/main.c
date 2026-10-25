@@ -32,7 +32,7 @@ int main(int argc, const char *argv[])
 
 	for (i = 1; i < argc; i++)
 	{
-		if (cmp(argv[i], "-f", "--file"))
+		if (scmp(argv[i], "--dst-file") || cmp(argv[i], "-f", "--file"))
 		{
 			args[i] = used_flag;
 			if (i + 1 < argc)
@@ -93,7 +93,7 @@ int main(int argc, const char *argv[])
 
 	if (file_cipher_source)
 	{
-		char *ret = file_handling(const char *filename, const char *dst_filename, cipher_type *cipher);
+		char *ret = file_handling(file_path, NULL, cipher_type *cipher);
 
 		/* TODO: 
 		 * read from file
