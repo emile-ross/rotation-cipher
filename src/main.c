@@ -7,7 +7,7 @@
 #define MIN_ARS (3)
 #define NUM_DEPTH_INCR (4)
 
-#define next_arg_to_fp(file_path) \
+#define next_arg(file_path) \
 	args[i] = used_flag; \
 	if (i + 1 < argc) { \
 		file_path = strdup(argv[i + 1]); \
@@ -28,8 +28,11 @@ int main(int argc, const char *argv[])
 	size_t temp_length = 0;
 	char *src_file_path = NULL;
 	char *dst_file_path = NULL;
+	char *user_cipher_str = NULL;
 	uint16_t temp_index = 0;
+
 	cipher_type prev_cipher_type = undefined;
+	cipher_type user_cipher = undefined;
 	input_types action = MENU_INVALID;
 
 	argument_type *args = smalloc(sizeof(argument_type) * (unsigned)argc);
@@ -46,11 +49,11 @@ int main(int argc, const char *argv[])
 	{
 		if (scmp(argv[i], "--src-file") || cmp(argv[i], "-f", "--file"))
 		{
-			next_arg_to_fp(src_file_path);
+			next_arg(src_file_path);
 		}
 		else if (cmp(argv[i], "--dst-file", "--destination-file") || cmp(argv[i], "-d", "--destination"))
 		{
-			next_arg_to_fp(src_file_path);
+			next_arg(src_file_path);
 		}
 		else if (cmp(argv[i], "-c", "--cipher"))
 		{
@@ -93,19 +96,13 @@ int main(int argc, const char *argv[])
 	/* if source file path is defined we parse the file */
 	if (src_file_path != NULL)
 	{
-		char *ret = file_handling(src_file_path, dst_file_path, cipher_type *cipher);
+		char *ret = file_handling(src_file_path, dst_file_path, cipher);
 		if (ret == NULL)
 		{
-
-
-
+			fprintf(stderr, "file_handling() failed and returned NULL\n");
+			free(args);
+			return 1;
 		}
-
-		/* TODO: 
-		 * read from file
-		 * convert to text 
-		 * write to file (optional)
-		 */
 	}
 
 	/* get str from the unused argument passed into the program */

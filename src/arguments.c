@@ -21,7 +21,4 @@ cipher_type convert_to_cipher()
 	 * match for each type
 	 *
 	 * return type */
-
-
-
 }
