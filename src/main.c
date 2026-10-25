@@ -7,6 +7,20 @@
 #define MIN_ARS (3)
 #define NUM_DEPTH_INCR (4)
 
+#define next_arg() \
+	args[i] = used_flag; \
+	if (i + 1 < argc) { \
+		file_path = strdup(argv[i + 1]); \
+		if (file_path == NULL) { \
+			fprintf(stderr, "error: strdup() returned NULL (failed to allocate memory)\n"); \
+			return 1; \
+		} file_cipher_source = True; \
+		args[i + 1] = used_argument; \
+	} else { \
+		args_expected(argv[i]); \
+		return -2; \
+	}
+
 int main(int argc, const char *argv[])
 {
 	uint16_t i = 0;
@@ -19,7 +33,6 @@ int main(int argc, const char *argv[])
 	input_types action = MENU_INVALID;
 
 	Bool file_cipher_source = False;
-
 	argument_type *args = smalloc(sizeof(argument_type) * (unsigned)argc);
 	args[0] = file_executed;	/* the command executing this */
 
@@ -32,26 +45,11 @@ int main(int argc, const char *argv[])
 
 	for (i = 1; i < argc; i++)
 	{
-		if (scmp(argv[i], "--dst-file") || cmp(argv[i], "-f", "--file"))
+		if (scmp(argv[i], "--src-file") || cmp(argv[i], "-f", "--file"))
 		{
-			args[i] = used_flag;
-			if (i + 1 < argc)
-			{
-				file_path = strdup(argv[i + 1]);
-				if (file_path == NULL)
-				{
-					fprintf(stderr, "error: strdup() returned NULL (failed to allocate memory)\n");
-					return 1;
-				}
-
-				file_cipher_source = True;
-				args[i + 1] = used_argument;
-			}
-			else
-			{
-				args_expected(argv[i]);
-				return -2;
-			}
+		}
+		else if (cmp(argv[i], "--dst-file", "--destination-file") || cmp(argv[i], "-d", "--destination"))
+		{
 		}
 		else if (cmp(argv[i], "-c", "--cipher"))
 		{
