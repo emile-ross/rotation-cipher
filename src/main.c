@@ -7,14 +7,13 @@
 #define MIN_ARS (3)
 #define NUM_DEPTH_INCR (4)
 
-#define next_arg() \
+#define next_arg_to_fp(file_path) \
 	args[i] = used_flag; \
 	if (i + 1 < argc) { \
 		file_path = strdup(argv[i + 1]); \
 		if (file_path == NULL) { \
 			fprintf(stderr, "error: strdup() returned NULL (failed to allocate memory)\n"); \
-			return 1; \
-		} file_cipher_source = True; \
+			return 1; } \
 		args[i + 1] = used_argument; \
 	} else { \
 		args_expected(argv[i]); \
@@ -27,12 +26,12 @@ int main(int argc, const char *argv[])
 	char *str = NULL;	/* gets edited by the menu() fn & main() */
 	uint16_t unused_arg_count = 0;
 	size_t temp_length = 0;
-	char *file_path = NULL;
+	char *src_file_path = NULL;
+	char *dst_file_path = NULL;
 	uint16_t temp_index = 0;
 	cipher_type prev_cipher_type = undefined;
 	input_types action = MENU_INVALID;
 
-	Bool file_cipher_source = False;
 	argument_type *args = smalloc(sizeof(argument_type) * (unsigned)argc);
 	args[0] = file_executed;	/* the command executing this */
 
@@ -47,9 +46,11 @@ int main(int argc, const char *argv[])
 	{
 		if (scmp(argv[i], "--src-file") || cmp(argv[i], "-f", "--file"))
 		{
+			next_arg_to_fp(src_file_path);
 		}
 		else if (cmp(argv[i], "--dst-file", "--destination-file") || cmp(argv[i], "-d", "--destination"))
 		{
+			next_arg_to_fp(src_file_path);
 		}
 		else if (cmp(argv[i], "-c", "--cipher"))
 		{
@@ -89,9 +90,16 @@ int main(int argc, const char *argv[])
 		}
 	}
 
-	if (file_cipher_source)
+	/* if source file path is defined we parse the file */
+	if (src_file_path != NULL)
 	{
-		char *ret = file_handling(file_path, NULL, cipher_type *cipher);
+		char *ret = file_handling(src_file_path, dst_file_path, cipher_type *cipher);
+		if (ret == NULL)
+		{
+
+
+
+		}
 
 		/* TODO: 
 		 * read from file
