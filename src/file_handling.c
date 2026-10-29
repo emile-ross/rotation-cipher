@@ -16,18 +16,21 @@ char *file_handling(const char *filename, const char *dst_filename, cipher_type 
 	size_t dst_len = 0;
 	const char *filename_template = "temp-%s";
 
-	if (scmp(dst_filename, filename))
+	if (dst_filename != NULL)
 	{
-		dst_len = (unsigned)snprintf(NULL, 0, filename_template, dst_filename);
-		s_dst_filename = smalloc(dst_len + 1);
-		snprintf(s_dst_filename, dst_len + 1, filename_template, dst_filename);
-		dst_fp = fopen(s_dst_filename, "w");
-		if (dst_fp == NULL)
+		if (scmp(dst_filename, filename))
 		{
-			fprintf(stderr, "fopen() failed to \"%s\"\n", s_dst_filename);
+			dst_len = (unsigned)snprintf(NULL, 0, filename_template, dst_filename);
+			s_dst_filename = smalloc(dst_len + 1);
+			snprintf(s_dst_filename, dst_len + 1, filename_template, dst_filename);
+			dst_fp = fopen(s_dst_filename, "w");
+			if (dst_fp == NULL)
+			{
+				fprintf(stderr, "fopen() failed to \"%s\"\n", s_dst_filename);
 
-			free(s_dst_filename);
-			return NULL;
+				free(s_dst_filename);
+				return NULL;
+			}
 		}
 	}
 
@@ -61,6 +64,7 @@ char *file_handling(const char *filename, const char *dst_filename, cipher_type 
 			if (dst_filename != NULL)
 			{
 				/* TODO write to file */
+				fprintf(dst_fp, "%s", input_buffer);
 			}
 			else
 			{
