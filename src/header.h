@@ -35,7 +35,7 @@ Bool copy(const char *input);
 	void *srealloc(void *old_ptr, size_t size);
 
 /* file_handling.c */
-	char *file_handling(const char *filename, const char *dst_filename, cipher_type *cipher);
+	Bool file_handling(const char *filename, char *dst_filename, cipher_type *cipher);
 
 /* arguments.c */
 	cipher_type convert_to_cipher(const char *argument);

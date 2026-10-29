@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 /* read from file and return a pointer to the allocated memory */
-char *file_handling(const char *filename, const char *dst_filename, cipher_type *cipher)
+Bool file_handling(const char *filename, char *dst_filename, cipher_type *cipher)
 {
 	const size_t LINE_BUFFER_SIZE = 512; 
 
@@ -24,13 +24,18 @@ char *file_handling(const char *filename, const char *dst_filename, cipher_type 
 			s_dst_filename = smalloc(dst_len + 1);
 			snprintf(s_dst_filename, dst_len + 1, filename_template, dst_filename);
 			dst_fp = fopen(s_dst_filename, "w");
+
 			if (dst_fp == NULL)
 			{
 				fprintf(stderr, "fopen() failed to \"%s\"\n", s_dst_filename);
 
 				free(s_dst_filename);
-				return NULL;
+				return False;
 			}
+		}
+		else
+		{
+			s_dst_filename = dst_filename;
 		}
 	}
 
@@ -47,7 +52,7 @@ char *file_handling(const char *filename, const char *dst_filename, cipher_type 
 		if (s_dst_filename != NULL)
 			free(s_dst_filename);
 
-		return NULL;
+		return False;
 	}
 
 	input_buffer = smalloc(LINE_BUFFER_SIZE + 1);
@@ -84,5 +89,6 @@ char *file_handling(const char *filename, const char *dst_filename, cipher_type 
 		free(s_dst_filename);
 		fclose(dst_fp);
 	}
-	return NULL;
+
+	return False;
 }

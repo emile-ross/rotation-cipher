@@ -97,8 +97,8 @@ int main(int argc, const char *argv[])
 	/* if source file path is defined we parse the file */
 	if (src_file_path != NULL)
 	{
-		char *ret = file_handling(src_file_path, dst_file_path, &user_cipher);
-		if (ret == NULL)
+		Bool success = file_handling(src_file_path, dst_file_path, &user_cipher);
+		if (!(success))
 		{
 			fprintf(stderr, "file_handling() failed and returned NULL\n");
 			free(args);
