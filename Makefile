@@ -3,7 +3,7 @@ CC = cc
 BIN_NAME := rot-solver
 
 CFLAGS := -O2 -Wpedantic -Wswitch-enum -Wall -Wextra -Wconversion -g -O3 -march=native
-src_files = arguments base64 compare encoding file_handling main memory_safety menu safe_copy take_input ciphers copying config
+src_files = arguments base64 ciphers compare config copying encoding file_handling main memory_safety menu safe_copy take_input
 
 SRC_PATH := $(addprefix src/, $(src_files))
 SRCS := $(addsuffix .c, $(SRC_PATH))
@@ -12,6 +12,7 @@ time = $(shell date --iso-8601='date')
 
 .PHONY: all
 all: 
+	@# Compile the entire program with error messages
 	$(CC) $(SRCS) -o $(BIN_NAME) $(CFLAGS) -std=c89 -Werror
 
 .PHONY: warn

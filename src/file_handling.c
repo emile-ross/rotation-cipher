@@ -73,7 +73,7 @@ Bool file_handling(const char *filename, char *dst_filename, cipher_type *cipher
 			}
 			else
 			{
-				printf(input_buffer);
+				printf("%s\n", input_buffer);
 			}
 		}
 		else
