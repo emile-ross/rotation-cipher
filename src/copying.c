@@ -1,7 +1,4 @@
-#ifndef COPYING_DOT_H
-#define COPYING_DOT_H
 #include "header.h"
-#include "config.h"
 
 #include <stdlib.h>
 
@@ -27,8 +24,6 @@ Bool copy(const char *input)
 			clipboard = wlcopy;
 		}
 	#endif
-	    return 0;
-
 
 	size = 1 + (unsigned)snprintf(NULL, 0, command_template, input, clipboard);
 	cmd_buf = smalloc(size);
@@ -40,5 +35,3 @@ Bool copy(const char *input)
 
 	return True;
 }
-
-#endif
