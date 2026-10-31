@@ -199,6 +199,11 @@ Bool copy(const char *input)
 	char *clipboard = NULL;
 	uint32_t size = 0;
 	char *cmd_buf = NULL;
+	#ifdef _WIN32
+		char *win_clip = "clip";
+		clipboard = win_clip;
+	#endif
+	    return 0;
 
 	if (xorg)
 	{

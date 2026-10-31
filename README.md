@@ -2,6 +2,10 @@
 
 This project converts a string from encoded text over to human readable text.
 
+Supported platforms:
+
+Linux, FreeBSD, OpenBSD, Windows
+
 
 ## building instructions 
 
