@@ -18,3 +18,28 @@ void safe_mem_copy(char *dst, size_t *dst_size, char *src, size_t src_size)
 	dst = srealloc(dst, *dst_size);
 	strncpy(dst, src, src_size);
 }
+
+void strip_newline(char *string, size_t length)
+{
+	uint32_t i = 0;
+	if (length <= 2)
+	{
+		return;
+	}
+
+	for (i = (uint32_t)length; i > 0; i--)
+	{
+		if (string[i] == '\n' || string[i] == '\r')
+		{
+			string[i] = '\0';
+		}
+		else if (string[i] == '\0')
+		{
+			continue;
+		}
+		else 
+		{
+			break;
+		}
+	}
+}

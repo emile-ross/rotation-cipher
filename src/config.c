@@ -2,6 +2,7 @@
 
 /* The display server is used to determine which
  * command to use when copying to the clipboard */
+/* TODO: auto detect wayland/xorg with getenv() */
 const Bool xorg = True;
 const Bool wayland = False;
 
