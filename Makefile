@@ -3,7 +3,7 @@ CC = cc
 BIN_NAME := rot-solver
 
 CFLAGS := -O2 -Wpedantic -Wswitch-enum -Wall -Wextra -Wconversion -g -O3 -march=native
-src_files = arguments base64 compare encoding file_handling main memory_safety menu safe_copy take_input ciphers
+src_files = arguments base64 compare encoding file_handling main memory_safety menu safe_copy take_input ciphers copying config
 
 SRC_PATH := $(addprefix src/, $(src_files))
 SRCS := $(addsuffix .c, $(SRC_PATH))

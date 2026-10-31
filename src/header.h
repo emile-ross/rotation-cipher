@@ -8,10 +8,18 @@
 
 #include "data_types.h"
 
+#define INIT_MENU_ITEMS (5)
+
 #define INT32MAX	(2147483647)
 #define INT32MIN	(-2147483648)
 
-void *smalloc(size_t size);
+/* config.c */
+extern const Bool xorg;
+extern const Bool wayland;
+extern cipher_type types[INIT_MENU_ITEMS];
+
+/* memory_safety.c */
+	void *smalloc(size_t size);
 void rotate(char **dst, char *src, size_t len, char *init_char, uint8_t charset, int8_t cipher);
 void decipher(char **dst, char *src, size_t *length, cipher_type cipher);
 void to_cipher(char **dst, char *src, size_t *length, cipher_type cipher);
@@ -53,8 +61,8 @@ Bool copy(const char *input);
 /* string copy */
 	void safe_mem_copy(char *dst, size_t *dst_size, char *src, size_t src_size);
 
-
 /* in main.c */
 	void display_help(void);
+
 
 #endif /* HEADER.H */
