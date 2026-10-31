@@ -1,10 +1,13 @@
 #include "header.h"
 
+#include <stdlib.h>
+#include <string.h>
 
 char *cipher_type_text(cipher_type type)
 {
 	const char *str = NULL;
 	char *return_string = NULL;
+	size_t len = 0;
 	switch (type)
 	{
 		case ROT_47:
@@ -31,17 +34,21 @@ char *cipher_type_text(cipher_type type)
 		case previous_cipher:
 		case undefined:
 		default:
-			fprintf(stderr, "");
+			fprintf(stderr, "(Unknown cipher name)");
 			break;
 	}
 
 	if (str != NULL)
 	{
-		return_string = smalloc(strlen(str) + 1);
-		
+		len = strlen(str) + 1;
+		return_string = smalloc(len);
+		snprintf(return_string, len, "%s", str);
 	}
 	else
+	{
+		/* did not write to str in the switch (because it failed) */
 		exit(EXIT_FAILURE);	/* TODO handle error in calling function maybe */
+	}
 
-	return NULL;
+	return return_string;
 }
