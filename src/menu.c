@@ -202,19 +202,20 @@ Bool copy(const char *input)
 	#ifdef _WIN32
 		char *win_clip = "clip";
 		clipboard = win_clip;
+	#else
+		if (xorg)
+		{
+			char *xclip = "xclip";
+			clipboard = xclip;
+		}
+		else if (wayland)
+		{
+			char *wlcopy = "wl-copy";
+			clipboard = wlcopy;
+		}
 	#endif
 	    return 0;
 
-	if (xorg)
-	{
-		char *xclip = "xclip";
-		clipboard = xclip;
-	}
-	else if (wayland)
-	{
-		char *wlcopy = "wl-copy";
-		clipboard = wlcopy;
-	}
 
 	size = 1 + (unsigned)snprintf(NULL, 0, command_template, input, clipboard);
 	cmd_buf = smalloc(size);
