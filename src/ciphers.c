@@ -1,3 +1,6 @@
+#include "header.h"
+
+
 char *cipher_type_text(cipher_type type)
 {
 	switch (type)
@@ -13,6 +16,13 @@ char *cipher_type_text(cipher_type type)
 		case ROT_13:
 			break;
 		case BASE_64:
+			break;
+		case RSA:
+			break;
+		case previous_cipher:
+			break;
+		case undefined:
+		default:
 			break;
 	}
 	return NULL;

@@ -11,6 +11,7 @@
 	display_menu(menu_items, types);
 
 
+/* TODO: pass arguments as a single struct */
 cipher_type menu(char **str, size_t length, input_types *action, cipher_type prev_cipher_type)
 {
 	cipher_type ret = undefined;
@@ -199,6 +200,7 @@ Bool copy(const char *input)
 	char *clipboard = NULL;
 	uint32_t size = 0;
 	char *cmd_buf = NULL;
+
 	#ifdef _WIN32
 		char *win_clip = "clip";
 		clipboard = win_clip;

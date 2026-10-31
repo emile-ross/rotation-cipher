@@ -43,6 +43,9 @@ Bool copy(const char *input);
 	void args_expected(const char *cmd_flag);
 
 
+/* ciphers.c */
+	char *cipher_type_text(cipher_type type);
+
 /* take_input.c */
 	int32_t getinput(input_types *action);
 	void block(void);
