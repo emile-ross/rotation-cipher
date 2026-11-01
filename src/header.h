@@ -29,6 +29,7 @@ Bool copy(const char *input);
 
 /* detect.c */
 	server_type get_server(void);
+	Bool iswsl(void);
 
 /* menu.c */
 	cipher_type menu(char **str, size_t length, input_types *action, cipher_type prev_cipher_type);

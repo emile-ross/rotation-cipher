@@ -28,6 +28,7 @@ server_type get_server(void)
 		return windows;
 	#endif
 	
+	/* probably some broken stupid windows bug */
 	fprintf(stderr, "Unknown display server\n");
 	fprintf(stderr, "Are you running one?\n");
 

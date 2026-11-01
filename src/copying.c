@@ -14,7 +14,7 @@ Bool copy(const char *input)
 	switch (display_server)
 	{
 		case wsl: {
-			char *win_clip = "clip";
+			char *win_clip = "clip.exe";
 			clipboard = win_clip;
 			break;
 		}
@@ -22,11 +22,24 @@ Bool copy(const char *input)
 			char *xclip = "xclip";
 			clipboard = xclip;
 			break;
-		else if (wayland)
-		{
+		}
+		case wayland: {
 			char *wlcopy = "wl-copy";
 			clipboard = wlcopy;
+			break;
 		}
+		case windows: {
+			char *clip = "clip";
+			clipboard = clip;
+			break;
+		}
+		default: {
+			char *clip = "clip";
+			clipboard = clip;
+		}
+	
+
+	}
 
 	size = 1 + (unsigned)snprintf(NULL, 0, command_template, input, clipboard);
 	cmd_buf = smalloc(size);
