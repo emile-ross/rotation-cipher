@@ -43,3 +43,11 @@ typedef enum
 	MENU_UNDO,
 	MENU_ENTRY
 } input_types;
+
+typedef enum
+{
+	wayland,
+	xorg,
+	windows,
+	wsl
+} server_type;
