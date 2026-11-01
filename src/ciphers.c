@@ -5,50 +5,28 @@
 
 char *cipher_type_text(cipher_type type)
 {
-	const char *str = NULL;
-	char *return_string = NULL;
-	size_t len = 0;
 	switch (type)
 	{
 		case ROT_47:
-			str = "ROT-47";
-			break;
+			return "ROT-47";
 		case ROT_48:
-			str = "ROT-48";
-			break;
+			return "ROT-48";
 		case ROT_1:
-			str = "ROT-1";
-			break;
+			return "ROT-1";
 		case ROT_24:
-			str = "ROT-24";
-			break;
+			return "ROT-24";
 		case ROT_13:
-			str = "ROT-13";
-			break;
+			return "ROT-13";
 		case BASE_64:
-			str = "ROT-64";
-			break;
+			return "ROT-64";
 		case RSA:
-			str = "RSA PUB";
-			break;
+			return "RSA PUB";
 		case previous_cipher:
+			__attribute__((fallthrough));
 		case undefined:
+			__attribute__((fallthrough));
 		default:
 			fprintf(stderr, "(Unknown cipher name)");
-			break;
 	}
-
-	if (str != NULL)
-	{
-		len = strlen(str) + 1;
-		return_string = smalloc(len);
-		snprintf(return_string, len, "%s", str);
-	}
-	else
-	{
-		/* did not write to str in the switch (because it failed) */
-		exit(EXIT_FAILURE);	/* TODO handle error in calling function maybe */
-	}
-
-	return return_string;
+	return NULL;
 }
