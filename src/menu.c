@@ -156,6 +156,7 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 void display_menu(struct cipher_menu_item *menu_items, cipher_type *types)
 {
 	uint32_t i = 0;
+	char *temp_str = NULL;
 
 	for (i = 0; types[i] != undefined; i++)
 	{
@@ -164,6 +165,7 @@ void display_menu(struct cipher_menu_item *menu_items, cipher_type *types)
 			if (menu_items[i].plain_text == NULL)
 				continue;
 		}
-		printf("Item #%u: \'%s\'\n", i + 1, menu_items[i].plain_text);
+		temp_str = cipher_type_text(types[i]);
+		printf("#%u, %s: \'%s\'\n", i + 1, temp_str, menu_items[i].plain_text);
 	}
 }

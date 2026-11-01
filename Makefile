@@ -21,6 +21,10 @@ warn:
 	@# only use this for testing
 	$(CC) $(SRCS) -o $(BIN_NAME) $(CFLAGS)
 
+.PHONY: pkg
+pkg:
+	$(CC) $(SRCS) -o $(BIN_NAME)
+
 .PHONY: clean
 clean:
 	rm *.o $(BIN_NAME)
