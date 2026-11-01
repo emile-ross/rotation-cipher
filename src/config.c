@@ -3,8 +3,6 @@
 /* The display server is used to determine which
  * command to use when copying to the clipboard */
 /* TODO: auto detect wayland/xorg with getenv() */
-const Bool xorg = True;
-const Bool wayland = False;
 
 /* this will exit whenever the user copies something to the clipboard */
 const Bool exit_on_copy = False;	

@@ -9,15 +9,18 @@ Bool copy(const char *input)
 	uint32_t size = 0;
 	char *cmd_buf = NULL;
 
-	#ifdef _WIN32
-		char *win_clip = "clip";
-		clipboard = win_clip;
-	#else
-		if (xorg)
-		{
+	server_type display_server = get_server();
+
+	switch ()
+	{
+		case wsl:
+			char *win_clip = "clip";
+			clipboard = win_clip;
+			break;
+		case xorg:
 			char *xclip = "xclip";
 			clipboard = xclip;
-		}
+			break;
 		else if (wayland)
 		{
 			char *wlcopy = "wl-copy";

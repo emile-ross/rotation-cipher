@@ -9,4 +9,14 @@ server_type get_server(void)
 	{
 		exit(EXIT_FAILURE);
 	}
+
+	if (scmp(environment, "wayland"))
+	{
+		return wayland;
+	}
+	else if (scmp(environment, "xorg"))
+		return xorg;
+	else if (iswsl())
+		return wsl;
+
 }
