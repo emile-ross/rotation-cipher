@@ -14,9 +14,7 @@
 #define INT32MIN	(-2147483648)
 
 /* config.c */
-extern const Bool xorg;
-extern const Bool wayland;
-extern cipher_type types[INIT_MENU_ITEMS];
+	extern cipher_type types[INIT_MENU_ITEMS];
 
 /* memory_safety.c */
 	void *smalloc(size_t size);
@@ -28,6 +26,9 @@ Bool copy(const char *input);
 /* base64.c */
 	unsigned char * base64_encode(const unsigned char *src, size_t len, size_t *out_len);
 	unsigned char * base64_decode(const unsigned char *src, size_t len, size_t *out_len);
+
+/* detect.c */
+	server_type get_server(void);
 
 /* menu.c */
 	cipher_type menu(char **str, size_t length, input_types *action, cipher_type prev_cipher_type);

@@ -1,5 +1,6 @@
 #include "header.h"
 
+#include <stdlib.h>
 
 server_type get_server(void)
 {
@@ -35,11 +36,12 @@ server_type get_server(void)
 
 Bool iswsl(void)
 {
+	/* returns NULL if it fails (not Windows Subsystem for Linux) */
 	const char *wsl = getenv("WSL_DISTRO_NAME");
 
 	if (wsl == NULL)
 	{
-		return False
+		return False;
 	}
 	else 
 	{

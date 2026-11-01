@@ -11,13 +11,14 @@ Bool copy(const char *input)
 
 	server_type display_server = get_server();
 
-	switch ()
+	switch (display_server)
 	{
-		case wsl:
+		case wsl: {
 			char *win_clip = "clip";
 			clipboard = win_clip;
 			break;
-		case xorg:
+		}
+		case xorg: {
 			char *xclip = "xclip";
 			clipboard = xclip;
 			break;
@@ -26,7 +27,6 @@ Bool copy(const char *input)
 			char *wlcopy = "wl-copy";
 			clipboard = wlcopy;
 		}
-	#endif
 
 	size = 1 + (unsigned)snprintf(NULL, 0, command_template, input, clipboard);
 	cmd_buf = smalloc(size);
