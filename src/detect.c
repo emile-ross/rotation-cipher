@@ -15,8 +15,34 @@ server_type get_server(void)
 		return wayland;
 	}
 	else if (scmp(environment, "xorg"))
+	{
 		return xorg;
+	}
 	else if (iswsl())
+	{
 		return wsl;
+	}
 
+	#ifndef _WIN32
+		return windows;
+	#endif
+	
+	fprintf(stderr, "Unknown display server\n");
+	fprintf(stderr, "Are you running one?\n");
+
+	exit(EXIT_FAILURE);
+}
+
+Bool iswsl(void)
+{
+	const char *wsl = getenv("WSL_DISTRO_NAME");
+
+	if (wsl == NULL)
+	{
+		return False
+	}
+	else 
+	{
+		return True;
+	}
 }
