@@ -20,9 +20,6 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 	char *temp = NULL;
 	input_types local_action = MENU_INVALID;
 
-	/* this is a default setting for the menu and it will never change */
-	/* TODO create a new config.c file for cipher types */
-
 	uint32_t num_items = 0;
 	struct cipher_menu_item *menu_items = (struct cipher_menu_item*)scalloc(INIT_MENU_ITEMS, sizeof(cipher_menu_item));
 	for (i = 0; types[i] != undefined; i++)

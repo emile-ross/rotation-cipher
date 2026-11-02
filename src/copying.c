@@ -14,31 +14,24 @@ Bool copy(const char *input)
 	switch (display_server)
 	{
 		case wsl: {
-			char *win_clip = "clip.exe";
-			clipboard = win_clip;
+			clipboard = "clip.exe";
 			break;
 		}
 		case xorg: {
-			char *xclip = "xclip";
-			clipboard = xclip;
+			clipboard = "xclip";
 			break;
 		}
 		case wayland: {
-			char *wlcopy = "wl-copy";
-			clipboard = wlcopy;
+			clipboard = "wl-copy";
 			break;
 		}
 		case windows: {
-			char *clip = "clip";
-			clipboard = clip;
+			clipboard = "clip";
 			break;
 		}
 		default: {
-			char *clip = "clip";
-			clipboard = clip;
+			clipboard = "clip";
 		}
-	
-
 	}
 
 	size = 1 + (unsigned)snprintf(NULL, 0, command_template, input, clipboard);

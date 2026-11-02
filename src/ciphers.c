@@ -22,11 +22,9 @@ char *cipher_type_text(cipher_type type)
 		case RSA:
 			return "RSA PUB";
 		case previous_cipher:
-			__attribute__((fallthrough));
 		case undefined:
-			__attribute__((fallthrough));
 		default:
-			fprintf(stderr, "(Unknown cipher name)");
+			return "(Unknown cipher name)";
 	}
 	return NULL;
 }
