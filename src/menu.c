@@ -53,6 +53,10 @@ cipher_type menu(char **str, size_t length, input_types *action, cipher_type pre
 			/* TODO add option to exit on copy 
 			 * if that option is true we can set local_action to MENU_EXIT & break
 			 * out of this while loop */
+			if (exit_on_copy)
+			{
+				local_action = MENU_EXIT;
+			}
 			goto display;
 		}
 

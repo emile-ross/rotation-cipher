@@ -4,7 +4,7 @@ This project converts a string from encoded text over to human readable text.
 
 Supported platforms:
 
-Linux, FreeBSD, OpenBSD, Windows
+Linux, FreeBSD, OpenBSD, Windows, Windows(WSL)
 
 
 ## building instructions 
@@ -41,14 +41,12 @@ sudo make install
 
 The program works out of the box but configuration might help you use it faster or tailor the program to your needs.  
 
-The configuration is in a header file (``src/config.h``) therefore, recompiling the program is needed in order to apply the changes.  
+The configuration is in a source file (``src/config.c``) therefore, recompiling the program is needed in order to apply the changes.  
 
 
 ## Contributions:
 
 Feel free to make pull requests even if you're not sure about what you've done.  
-
-
 
 
 The project is licensed under the GPL-V2 license except for the src/base64.c source file

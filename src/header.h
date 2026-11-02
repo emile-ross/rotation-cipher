@@ -15,6 +15,7 @@
 
 /* config.c */
 	extern cipher_type types[INIT_MENU_ITEMS];
+	extern const Bool exit_on_copy;
 
 /* memory_safety.c */
 	void *smalloc(size_t size);
