@@ -8,6 +8,8 @@ typedef enum
 	ROT_47,
 	ROT_48,
 	BASE_64,
+	HEX,
+	ALPHA_NUM,
 	RSA
 } cipher_type;
 

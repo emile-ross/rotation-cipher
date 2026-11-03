@@ -19,8 +19,12 @@ char *cipher_type_text(cipher_type type)
 			return "ROT-13";
 		case BASE_64:
 			return "ROT-64";
+		case HEX:
+			return "HEX";
 		case RSA:
 			return "RSA PUB";
+		case ALPHA_NUM:
+			return "ALPHA NUM";
 		case previous_cipher:
 		case undefined:
 		default:

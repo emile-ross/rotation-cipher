@@ -75,6 +75,10 @@ void decipher(char **dst, char *src, size_t *length, cipher_type cipher)
 	case RSA:
 		fprintf(stderr, "RSA is not supported. yet...\n");
 		break;
+	
+	case ALPHA_NUM:
+	case HEX:
+		      /* TODO handle these ciphers */
 
 	case previous_cipher:
 		/* logic error (should never be triggered) */
@@ -109,6 +113,9 @@ void to_cipher(char **dst, char *src, size_t *length, cipher_type cipher)
 			*dst = (char*)base64_encode((unsigned char *)src, *length, length);
 			break;
 		}
+		case ALPHA_NUM:
+		case HEX:
+			      /* TODO handle these ciphers */
 		case RSA:
 			fprintf(stderr, "RSA is not supported. yet...\n");
 			break;
