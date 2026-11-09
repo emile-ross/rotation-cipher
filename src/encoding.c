@@ -76,10 +76,24 @@ void decipher(char **dst, char *src, size_t *length, cipher_type cipher)
 		fprintf(stderr, "RSA is not supported. yet...\n");
 		break;
 	
+	/* TODO handle these ciphers */
 	case ALPHA_NUM:
+	{
+		uint32_t i = 0;
+		/* check for memory leak */
+		*dst = smalloc(*length);
+		snprintf(*dst, (*length + 1), "%s", src);
+		for (i = 0; i < *length;)
+		{
+			if (*(dst[i]))
+			{
+				printf("%s\n", (char*)(dst + i));
+			}
+		}
+	}
 	case HEX:
-		      /* TODO handle these ciphers */
-
+		fprintf(stderr, "Unsupported cipher type\n");
+		break;
 	case previous_cipher:
 		/* logic error (should never be triggered) */
 		fprintf(stderr, "Invalid cipher_type in decipher() fn\nprevious_cipher should be handled in main.c\n");
@@ -114,8 +128,12 @@ void to_cipher(char **dst, char *src, size_t *length, cipher_type cipher)
 			break;
 		}
 		case ALPHA_NUM:
+		{
+		}
 		case HEX:
+		{
 			      /* TODO handle these ciphers */
+		}
 		case RSA:
 			fprintf(stderr, "RSA is not supported. yet...\n");
 			break;
